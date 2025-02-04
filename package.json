@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx start-server -s ./dist",
-    "build": "npm run build --prefix frontend"
+    "build": "npm run build --prefix frontend --production=false"
   },
   "author": "Nikolai B.",
   "license": "ISC",
