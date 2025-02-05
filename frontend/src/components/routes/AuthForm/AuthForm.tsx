@@ -3,6 +3,8 @@ import { formSchema } from './validation';
 import { Form, Button }  from 'react-bootstrap';
 import authorize from './authorization';
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from '../../services/index.ts';
+import { setCredentials } from '../../services/authSlice.ts';
 
 export interface User {
   username: string;
@@ -19,17 +21,23 @@ const FormikFeedBackError = ({ message } : { message: string}) => {
 // Неверные имя пользователя или пароль
 
 export default function  AuthForm(): JSX.Element {
-  const navigate = useNavigate();
   const initialValues: User = { username: '', password: ''};
-
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  
   return (
     <Formik
         initialValues={initialValues}
+        validateOnChange={false}
         onSubmit={async (values, { setSubmitting, setErrors}): Promise<void> => {
           try {
-            await authorize(values).then(() => navigate('/'));
             setSubmitting(false);
-            
+            await authorize(values).then((response): void => {
+              const { username, token } = response.data;
+              localStorage.setItem("username", username)
+              localStorage.setItem("token", token)
+              dispatch(setCredentials({ username, token }))
+            }).then(() => navigate("/"))
           } catch (e) {
             console.log(e);
             setErrors({ username: "Неверные имя пользователя или пароль" });

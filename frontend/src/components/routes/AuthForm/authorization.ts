@@ -1,12 +1,11 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import routes from '../routes';
+import { User } from './AuthForm';
 
-const authorize = async (values: {username: string; password: string}): Promise<void> => {
+const authorize = async (values: User): Promise<AxiosResponse<{ username: string; token: string}>> => {
   const loginRoute = routes.login();
-  await axios.post(loginRoute, values).then((response): void => {
-    localStorage.setItem("user", response.data.username);
-    localStorage.setItem("token", response.data.token);
-  });
+  return await axios.post(loginRoute, values);
+  
 };
 
 export default authorize;
