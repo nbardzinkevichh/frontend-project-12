@@ -2,7 +2,8 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const userData = localStorage.getItem('token') ?? null;
+  // console.log(userData);
 
   return (
     <>

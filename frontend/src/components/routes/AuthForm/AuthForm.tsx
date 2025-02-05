@@ -1,49 +1,48 @@
-import { useFormik, Formik, FormikProps, FormikErrors, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import { formSchema } from './validation';
 import { Form, Button }  from 'react-bootstrap';
+import authorize from './authorization';
+import { useNavigate } from "react-router-dom";
 
-export interface FormValues {
+export interface User {
   username: string;
   password: string;
 }
 
-// interface OtherProps {
-//   message: string;
-// }
+const FormikFeedBackError = ({ message } : { message: string}) => {
+  return (
+    <Form.Control.Feedback type="invalid">
+      { message }
+    </Form.Control.Feedback>
+  )
+};
+// Неверные имя пользователя или пароль
 
-//axios.post('/api/v1/login', { username: 'admin', password: 'admin' }).then((response) => {
-//   console.log(response.data); // => { token: ..., username: 'admin' }
-// });
-//
-
-export default function AuthForm(): JSX.Element {
-  const initialValues: FormValues = { username: '', password: '' };
-  // const initialErrors: FormikErrors<FormValues> = {};
-  // const formik = useFormik({
-  //   initialValues,
-  //   initialErrors,
-  //   onSubmit: async (values) => {
-  //     await axios.post('/api/v1/login', values).then((response) => {
-  //       console.log(response.data);
-  //     })
-  //   },
-  //   validationSchema: formSchema
-  // });
-
-  // console.log(formik);
+export default function  AuthForm(): JSX.Element {
+  const navigate = useNavigate();
+  const initialValues: User = { username: '', password: ''};
 
   return (
     <Formik
         initialValues={initialValues}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={async (values, { setSubmitting, setErrors}): Promise<void> => {
+          try {
+            await authorize(values).then(() => navigate('/'));
+            setSubmitting(false);
+            
+          } catch (e) {
+            console.log(e);
+            setErrors({ username: "Неверные имя пользователя или пароль" });
+          }
+        }}
         validationSchema={formSchema}
       >
-        {( {values,
-      errors,
-      touched,
-      handleChange,
-      handleSubmit,
-      isSubmitting }) => (
+      {( {
+        values,
+        errors,
+        handleChange,
+        handleSubmit,
+      }) => (
         <>
           <img src="" alt="" />
           <div className="auth-form">
@@ -68,12 +67,10 @@ export default function AuthForm(): JSX.Element {
                 value={values.password}
                 isInvalid={!!errors.username}
                 />
-                <Form.Control.Feedback type="invalid">
-                  Неверные имя пользователя или пароль
-                </Form.Control.Feedback>
-                
+
+                { errors && <FormikFeedBackError message={errors.username!}/>}
               </Form.Group>
-              
+
               <Button variant="primary" type="submit">
                 Войти
               </Button>
@@ -82,10 +79,6 @@ export default function AuthForm(): JSX.Element {
           </div>
           </>
       )}
-
     </Formik>
   )
-
 };
-
-{/*  */}
