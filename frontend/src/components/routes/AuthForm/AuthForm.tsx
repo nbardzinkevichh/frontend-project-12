@@ -3,7 +3,7 @@ import { formSchema } from './validation';
 import { Form, Button }  from 'react-bootstrap';
 import authorize from './authorization';
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from '../../services/index.ts';
+import { useAppDispatch } from '../../services/store.ts';
 import { setCredentials } from '../../services/authSlice.ts';
 
 export interface User {

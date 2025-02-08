@@ -1,5 +1,4 @@
-import './App.css'
-import { RootState } from './services/index.ts';
+import { RootState } from './services/store.ts';
 import { Routes, Route, Navigate } from "react-router-dom";
 import AuthForm from './routes/AuthForm/AuthForm.tsx';
 import NotFound from './routes/NotFound.tsx';

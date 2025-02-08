@@ -2,12 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { User } from '../routes/AuthForm/AuthForm';
 
-import type { RootState } from './index';
+import type { RootState } from './store';
 
 interface AuthState {
   username: string | unknown | null;
   token: string | unknown | null
 }
+
 
 const slice = createSlice({
   name: 'auth',
