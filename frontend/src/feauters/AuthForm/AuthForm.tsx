@@ -1,10 +1,11 @@
 import { Formik } from 'formik';
-import { formSchema } from './validation';
+import { formSchema } from './validation.ts';
 import { Form, Button }  from 'react-bootstrap';
-import authorize from './authorization';
+import authorize from './authorization.ts';
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from '../../services/store.ts';
-import { setCredentials } from '../../services/authSlice.ts';
+
+import { useAppDispatch } from '../../app/store.ts';
+import { setCredentials } from './authSlice.ts';
 
 export interface User {
   username: string;
@@ -18,7 +19,6 @@ const FormikFeedBackError = ({ message } : { message: string}) => {
     </Form.Control.Feedback>
   )
 };
-// Неверные имя пользователя или пароль
 
 export default function  AuthForm(): JSX.Element {
   const initialValues: User = { username: '', password: ''};

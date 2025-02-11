@@ -1,10 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from './store';
+import type { RootState } from '../../app/store';
 
-// [{ id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
-
-export type Message = {
+export interface Message {
   id?: string;
   body: string;
   channelId: string;

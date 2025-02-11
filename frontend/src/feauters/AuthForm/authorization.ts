@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import routes from '../routes';
+import routes from '../../app/apiRoutes';
 import { User } from './AuthForm';
 
 const authorize = async (values: User): Promise<AxiosResponse<{ username: string; token: string}>> => {

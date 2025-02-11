@@ -1,9 +1,9 @@
 import { io, Socket } from "socket.io-client";
-import { setMessage } from "../components/services/messagesSlice";
-import { useAppDispatch } from "../components/services/store";
+import { setMessage } from "../feauters/Messages/messagesSlice";
+import { useAppDispatch } from "../app/store";
 import { useEffect } from 'react';
 
-import { Message } from "../components/services/messagesSlice";
+import { Message } from "../feauters/Messages/messagesSlice";
 
 interface ServerToClientEvents {
   newMessage: (message: Message) => void;

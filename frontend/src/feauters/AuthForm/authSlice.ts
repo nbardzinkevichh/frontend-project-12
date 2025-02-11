@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { User } from '../routes/AuthForm/AuthForm';
+import { User } from './AuthForm';
 
-import type { RootState } from './store';
+import type { RootState } from '../../app/store';
 
 interface AuthState {
   username: string | unknown | null;

@@ -1,11 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import authSlice from './authSlice';
 import { useDispatch } from 'react-redux'
-import { channelsApi } from './channelsApi';
-import messagesSlice from './messagesSlice';
-import channelsSlice from './channelsSlice';
-import { messagesApi } from './messagesApi';
 
+import authSlice from '../feauters/AuthForm/authSlice';
+import messagesSlice from '../feauters/Messages/messagesSlice';
+import channelsSlice from '../feauters/Channels/channelsSlice';
+
+import { channelsApi } from '../feauters/Channels/channelsApi';
+import { messagesApi } from '../feauters/Messages/messagesApi';
 
 const rootReducer = combineReducers({
   auth: authSlice,
@@ -23,8 +24,6 @@ const store = configureStore({
       .concat(messagesApi.middleware),
 
 });
-
-
 
 export type RootReducerType = ReturnType<typeof rootReducer>
 export type RootState = ReturnType<typeof store.getState>;

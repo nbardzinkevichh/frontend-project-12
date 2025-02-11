@@ -1,18 +1,17 @@
-import { RootState, useAppDispatch } from "./services/store";
+import { RootState, useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { useGetMessagesQuery, useSendMessageMutation } from "./services/messagesApi";
-import { getActiveChannel } from "./services/channelsSlice";
+import { useGetMessagesQuery, useSendMessageMutation } from "./messagesApi";
+import { getActiveChannel } from "../Channels/channelsSlice";
 
+import { useSocketsManager } from "../../sockets/socketsManager";
 
-import { cleanUpSockets, socketsManager, useSocketsManager } from "../sockets/socketsManager";
-
-import { Message, selectMessages } from "./services/messagesSlice";
+import { Message, selectMessages } from "./messagesSlice";
 
 import { useEffect, useState } from "react";
-import { setMessages, setMessage } from "./services/messagesSlice";
+import { setMessages } from "./messagesSlice";
 
 import { ToastContainer, toast } from "react-toastify";
-import { toastifyConfig } from "../toastifyConfig";
+import { toastifyConfig } from "../../configs/toastifyConfig";
 import "react-toastify/dist/ReactToastify.css";
 
 
@@ -27,11 +26,10 @@ export default function Messages() {
     toast.error(errorMessage, toastifyConfig);
   };
 
-  const [sendMessage, { error: sentMessageError, isSuccess: sentMessageSuccess }] = useSendMessageMutation();
+  const [sendMessage, { error: sentMessageError }] = useSendMessageMutation();
   const { data, error, isLoading, isSuccess } = useGetMessagesQuery();
   const messages = useSelector(selectMessages);
 
-  
   const dispatch = useAppDispatch();
   
   useEffect(() => {
