@@ -3,11 +3,6 @@ import Header from "./Header";
 
 import Channels from "./Channels";
 import Messages from "./Messages";
-import { useState } from "react";
-import { useGetChannelsQuery } from "./services/channelsApi";
-import { selectChannels } from "./services/channelsSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "./services/store";
 
 
 const Chat = () => {

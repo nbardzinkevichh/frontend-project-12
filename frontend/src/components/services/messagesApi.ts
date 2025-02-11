@@ -17,16 +17,25 @@ export const messagesApi = createApi({
     },
    }),
   endpoints: (builder) => ({
+    // builder.query<ResultType, argsType>
     getMessages: builder.query<Message[], void>({
       query: () => '',
     }),
     editMessage: builder.mutation<Message, void>({
       query: (id) => '',
     }),
+    sendMessage: builder.mutation<Message, { message: string, channelId: string | 0 }>({
+      query: ({ message, channelId }) => ({
+        url: '',
+        method: 'POST',
+        body: { body: message, channelId }
+      }),
+    })
   }),
 });
 
 export const {
   useGetMessagesQuery,
   useEditMessageMutation,
+  useSendMessageMutation
 } = messagesApi;

@@ -5,10 +5,10 @@ import type { RootState } from './store';
 // [{ id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
 
 export type Message = {
-  id: string;
+  id?: string;
   body: string;
   channelId: string;
-  username: string;
+  username?: string;
 };
 
 type Messages = {
@@ -31,10 +31,18 @@ const slice = createSlice({
     ) => {
       state.messages = messages;
     },
+    setMessage: (
+      state,
+      {
+        payload: { message },
+      }: PayloadAction<{ message: Message }>,
+    ) => {
+      state.messages.push(message);
+    }
   },
 })
 
-export const { setMessages } = slice.actions
+export const { setMessages, setMessage } = slice.actions
 
 export default slice.reducer
 

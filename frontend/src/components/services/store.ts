@@ -7,7 +7,6 @@ import channelsSlice from './channelsSlice';
 import { messagesApi } from './messagesApi';
 
 
-// localStorage.clear();
 const rootReducer = combineReducers({
   auth: authSlice,
   [channelsApi.reducerPath]: channelsApi.reducer,
