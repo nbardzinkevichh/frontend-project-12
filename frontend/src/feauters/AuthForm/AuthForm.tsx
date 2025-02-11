@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Formik, Field, FormikHelpers } from 'formik';
 import { formSchema } from './validation.ts';
 import { Form, Button }  from 'react-bootstrap';
 import authorize from './authorization.ts';
@@ -24,31 +24,32 @@ export default function  AuthForm(): JSX.Element {
   const initialValues: User = { username: '', password: ''};
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const handleSubmit = async (values: User, { setSubmitting, setErrors }: FormikHelpers<User>): Promise<void> => {
+    try {
+      setSubmitting(false);
+      await authorize(values).then((response): void => {
+        const { username, token } = response.data;
+        localStorage.setItem("username", username)
+        localStorage.setItem("token", token)
+        dispatch(setCredentials({ username, token }))
+      }).then(() => navigate("/"))
+    } catch (e) {
+      console.log(e);
+      setErrors({ username: "Неверные имя пользователя или пароль" });
+    }
+  };
   
   return (
     <Formik
         initialValues={initialValues}
         validateOnChange={false}
-        onSubmit={async (values, { setSubmitting, setErrors}): Promise<void> => {
-          try {
-            setSubmitting(false);
-            await authorize(values).then((response): void => {
-              const { username, token } = response.data;
-              localStorage.setItem("username", username)
-              localStorage.setItem("token", token)
-              dispatch(setCredentials({ username, token }))
-            }).then(() => navigate("/"))
-          } catch (e) {
-            console.log(e);
-            setErrors({ username: "Неверные имя пользователя или пароль" });
-          }
-        }}
+        onSubmit={(values, actions) => handleSubmit(values, actions)}
         validationSchema={formSchema}
       >
       {( {
-        values,
+        touched,
         errors,
-        handleChange,
         handleSubmit,
       }) => (
         <>
@@ -56,28 +57,27 @@ export default function  AuthForm(): JSX.Element {
           <div className="auth-form">
             <h1>Войти</h1>
             <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3"controlId="formUsername">
-                <Form.Control 
-                  required
-                  type="text" 
-                  placeholder="Ваш ник" 
-                  onChange={handleChange('username')} 
-                  value={values.username} 
-                  isInvalid={!!errors.username}
-                  className="mb-3"
-
-                />
-                <Form.Control
+              <Field 
+                as={Form.Control}
+                name="username"
                 required
+                type="text"
+                placeholder="Ваш ник"
+                className={`mb-3 ${
+                  touched.username && errors.username ? "is-invalid" : ""
+                }`}
+                />
+              <Field
+                as={Form.Control}
+                required
+                name="password"
                 type="password"
                 placeholder="Пароль"
-                onChange={handleChange('password')}
-                value={values.password}
-                isInvalid={!!errors.username}
-                />
+                className={`mb-3 ${touched.password && errors.password ? "is-invalid" : ''}`}
+                >
+                </Field>
 
                 { errors && <FormikFeedBackError message={errors.username!}/>}
-              </Form.Group>
 
               <Button variant="primary" type="submit">
                 Войти
