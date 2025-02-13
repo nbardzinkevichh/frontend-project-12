@@ -20,8 +20,13 @@ export const channelsApi = createApi({
     getChannels: builder.query<Channel[], void>({
       query: () => '',
     }),
-    addChannel: builder.mutation<Channel[], void>({
-      query: (id) => '',
+    addChannel: builder.mutation<Channel, { name: string}>({
+      query: ({ name }) => ({
+          url: '',
+          method: 'POST',
+          body: { name: name},
+        }
+      )
     }),
     editChannel: builder.mutation<Channel[], void>({
       query: (id) => '',
