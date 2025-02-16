@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../../app/store';
+import { deleteChannel } from '../Channels/channelsSlice';
+
 
 export interface Message {
   id?: string;
@@ -38,6 +40,14 @@ const slice = createSlice({
       state.messages.push(message);
     }
   },
+  extraReducers: (builder) => {
+    builder.addCase(deleteChannel, (state, action) => {
+      const channelId = action.payload.id;
+      
+      state.messages = state.messages.filter((message) => message.channelId !== channelId);
+      
+    });
+  }
 })
 
 export const { setMessages, setMessage } = slice.actions
@@ -45,4 +55,3 @@ export const { setMessages, setMessage } = slice.actions
 export default slice.reducer
 
 export const selectMessages = (state: RootState) => state.messagesSlice.messages;
-// export const activeChannelMessages = (state: RootState, activeId: string) => state.messagesSlice.messages.filter((message) => message.id === activeId);

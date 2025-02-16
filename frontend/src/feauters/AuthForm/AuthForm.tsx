@@ -25,7 +25,7 @@ export default function  AuthForm(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleSubmit = async (values: User, { setSubmitting, setErrors }: FormikHelpers<User>): Promise<void> => {
+  const handleSubmit = async (values: User, { setSubmitting, setErrors, resetForm }: FormikHelpers<User>): Promise<void> => {
     try {
       setSubmitting(false);
       await authorize(values).then((response): void => {
@@ -33,7 +33,10 @@ export default function  AuthForm(): JSX.Element {
         localStorage.setItem("username", username)
         localStorage.setItem("token", token)
         dispatch(setCredentials({ username, token }))
-      }).then(() => navigate("/"))
+      }).then(() => {
+        resetForm();
+        navigate("/");
+      })
     } catch (e) {
       console.log(e);
       setErrors({ username: "Неверные имя пользователя или пароль" });
@@ -44,7 +47,7 @@ export default function  AuthForm(): JSX.Element {
     <Formik
         initialValues={initialValues}
         validateOnChange={false}
-        onSubmit={(values, actions) => handleSubmit(values, actions)}
+        onSubmit={handleSubmit}
         validationSchema={formSchema}
       >
       {( {

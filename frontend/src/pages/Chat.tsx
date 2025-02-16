@@ -10,12 +10,12 @@ const Chat = () => {
   return (
     <div className="d-flex flex-column h-100">
       <Header />
-      <Container className="h-100 my-4 overflow-hidden rounded shadow">
-        <Row className="h-100">
-          <Col md={2} className="px-0 border-end">
+      <Container className="my-4 rounded overflow-hidden shadow h-100">
+        <Row className="bg-white flex-md-row h-100 ">
+          <Col md={2} className="px-0 border-end h-100  overflow-auto">
             <Channels />
           </Col>
-          <Col className="px-0">
+          <Col className="p-0 h-100">
             <Messages />
           </Col>
         </Row>

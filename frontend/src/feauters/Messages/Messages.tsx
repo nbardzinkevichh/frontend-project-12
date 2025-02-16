@@ -50,6 +50,7 @@ export default function Messages() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>)  => {
     e.preventDefault();
     sendMessage({ message: inputMessage, channelId: activeIndex });
+    setInputMessage('');
   };
 
   if (sentMessageError) {
@@ -57,25 +58,22 @@ export default function Messages() {
   }
 
   return (
-    <>
-    <div className="d-flex flex-column h-100  bg-white">
-      <div className="py-1 px-3 bg-light shadow-sm">
+    <div className="d-flex flex-column bg-white h-100">
+      <div className="py-1 px-3 mb-4 bg-light shadow-sm">
         <b className=""># {activeChannel?.name}</b>
         <p className="">{activeMessages.length} сообщений</p>
       </div>
       
-      <div className="message-box">
-        <ul className="p-0">
-          {  data && activeMessages.map((message: Message) => <li key={message.id}><button className="w-100 p-0 rounded-0 text-start btn" type="button"># {message.body}</button></li>)}
-        </ul>
+      <div className="message-box px-5 overflow-auto">
+        { isSuccess && activeMessages.map((msg) => <div key={msg.id} className="text-break mb-2"><b>{msg.username}: </b>{msg.body}</div>)}
+        
       </div>
-
       <ToastContainer aria-label="Notification container" />
 
 
       <div className="mt-auto px-5 py-3">
         <form className="border rounded" action="" onSubmit={handleSubmit}>
-          <div className="input-group py-1">
+          <div className="input-group">
             <input type="text" className="form-control py-2 border-0" placeholder="Введите сообщение..." value={inputMessage} onChange={handleInputMessageChange} aria-label="Введите новое сообщение" aria-describedby="basic-addon1" />
             <button className="btn btn-group-vertical send-button border-0" type="submit" disabled={inputMessage.length > 0 ? false : true}>
               <svg className="send-svg" width="20px" height="20px" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,6 +85,5 @@ export default function Messages() {
       </div>
       
     </div>
-    </>
   )
 }

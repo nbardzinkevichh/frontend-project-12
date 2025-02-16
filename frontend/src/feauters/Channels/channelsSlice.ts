@@ -21,19 +21,28 @@ const slice = createSlice({
   name: 'channelsSlice',
   initialState,
   reducers: {
-    setChannels: ( state, { payload: { channels }, }: PayloadAction<{ channels: Channel[] }>, ) => {
+    setChannels: (state, { payload: { channels }, }: PayloadAction<{ channels: Channel[] }>, ) => {
       state.channels = channels;
     },
     setActiveChannel: (state, action: PayloadAction<Channel>) => {
       state.activeChannel = action.payload;
     },
-    setChannel: ( state, action: PayloadAction<Channel>, ) => {
+    setChannel: (state, action: PayloadAction<Channel>, ) => {
       state.channels.push(action.payload);
     },
-  },
+    editChannelName: (state, action: PayloadAction<Channel>) => {
+      const channel = state.channels.find((channel) => channel.id === action.payload.id);
+      if (channel) {
+        channel.name = action.payload.name
+      }
+    },
+    deleteChannel: ( state, action: PayloadAction<{id: string}>) => {
+      state.channels = state.channels.filter((channel) => channel.id !== action.payload.id);
+    }
+  }, 
 })
 
-export const { setChannels, setActiveChannel, setChannel } = slice.actions;
+export const { setChannels, setActiveChannel, setChannel, editChannelName, deleteChannel } = slice.actions;
 
 export default slice.reducer;
 
