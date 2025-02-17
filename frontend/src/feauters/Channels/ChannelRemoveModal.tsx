@@ -1,8 +1,6 @@
 import { Button, Modal } from "react-bootstrap"
-import { setActiveChannel, deleteChannel, selectChannels } from "./channelsSlice";
+
 import { useRemoveChannelMutation } from "./channelsApi";
-import { RootState, useAppDispatch } from "../../app/store";
-import { useSelector } from "react-redux";
 
 interface RemoveChannelModalProps {
   show: boolean;
@@ -11,17 +9,12 @@ interface RemoveChannelModalProps {
 }
 
 export const RemoveChannelModal: React.FC<RemoveChannelModalProps> = ({show, channelIdToDelete, handleModalClose}) => {
-  const dispatch = useAppDispatch();
-  const channels = useSelector((state: RootState) => selectChannels(state));
-
   const [removeChannel] = useRemoveChannelMutation();
-  
-  
+
   const confirmChannelDeletion = async () => {
     try {
-      const response = await removeChannel(channelIdToDelete);
-      dispatch(deleteChannel(response.data!));
-      dispatch(setActiveChannel(channels[0]));
+      await removeChannel(channelIdToDelete);
+
       handleModalClose('delete');
     } catch(e) {
       console.log(e);

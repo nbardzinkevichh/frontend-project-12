@@ -1,22 +1,14 @@
 import { Formik, Field, FormikHelpers } from "formik";
 
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../app/store";
-import { Channel, setChannel, setActiveChannel, selectChannels, editChannelName} from "./channelsSlice";
+
+import { selectChannels} from "./channelsSlice";
 
 import { useAddChannelMutation, useEditChannelMutation } from "./channelsApi";
 
 import { Modal, Form, Button } from "react-bootstrap";
 
 import { channelFieldValidation } from "./channelFieldValidation";
-
-
-
-// При удалении канала должны удаляться и его сообщения, а пользователи, находящиеся 
-// в удаляемом канале, должны быть перемещены в дефолтный канал ДОБАВИТЬ extra reducer
-
-// я думаю стоит объединить модальные окна и добавить режим delete
-
 
 interface ChannelModalProps {
   mode: 'add' | 'edit';
@@ -26,45 +18,23 @@ interface ChannelModalProps {
   existingChannel?: { id: string, name: string };
 }
 
-
-// const createChannel = async (name: string, addChannel: (name: string) => Channel): Promise<Channel> => {
-//   const response = await addChannel(name);
-//   const newChannel: Channel = response.data;
-//   console.log(newChannel);
-//   return newChannel;
-// };
-// const editChannel =
-
-
 const ChannelModal: React.FC<ChannelModalProps> = ({ mode, setModalMode, show, handleModalClose, existingChannel }): JSX.Element => {
-  const dispatch = useAppDispatch();
   const [addChannel] = useAddChannelMutation();
-  const [editChannel, { data, error}] = useEditChannelMutation();
-  const channels = useSelector((state: RootState) => selectChannels(state));
+  const [editChannel] = useEditChannelMutation();
+  const channels = useSelector(selectChannels);
 
   const initialValues = { name: existingChannel?.name ?? '' };
 
+  // ADD TOASTIFY TO HANDLE ERRORS/SUCCESS
   const handleSubmit = async (value: { name: string}, { setSubmitting, setErrors, resetForm }: FormikHelpers<typeof initialValues>): Promise<void> => {
     setSubmitting(false);
     try {
       if (mode === 'add') {
-        await addChannel(value).then((response) => {
-          const newChannel: Channel = response.data!;
-          dispatch(setChannel(newChannel));
-          dispatch(setActiveChannel(newChannel))
-          
-  
-        })
+        await addChannel(value);
       } else {
-        const response = await editChannel({ id: existingChannel!.id, name: value.name });
-        const newChannel: Channel = response.data!;
-        console.log(newChannel);
-        dispatch(editChannelName(newChannel));
-        dispatch(setActiveChannel(newChannel))
-        
+        await editChannel({id: existingChannel!.id, name: value.name});
       }
-      
- 
+
       resetForm();
       handleModalClose('add');
       setModalMode('add');

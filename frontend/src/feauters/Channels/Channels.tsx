@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { useAppDispatch } from "../../app/store";
-import { RootState } from "../../app/store";
 
 import { useGetChannelsQuery } from "./channelsApi";
 
@@ -29,6 +28,7 @@ export default function Channels() {
   const handleModalClose = (modal: 'delete' | 'add') => modals[modal](false);
   const handleModalShow = (modal: 'delete' | 'add') => modals[modal](true);
 
+  // ADD TOASTIFY TO HANDLE ERRORs
   const { data, error, isLoading, isSuccess } = useGetChannelsQuery();
 
   const dispatch = useAppDispatch();
@@ -37,14 +37,13 @@ export default function Channels() {
       dispatch(setChannels({ channels: data }));
       dispatch(setActiveChannel(data[0]))
     }
-  }, [isSuccess, data, dispatch]);
+  }, [data]);
 
   
   
 
   const handleChannelChange = (id: string) => {
     const channelToChange = channels.find((channel) => channel.id === id);
-    
     dispatch(setActiveChannel(channelToChange!))
   };
 
@@ -61,8 +60,8 @@ export default function Channels() {
 
   const sharedButtonClasses = "w-100 p-0 rounded-0 text-start btn p-2";
 
-  const channels = useSelector((state: RootState) => selectChannels(state));
-  const activeChannel = useSelector((state: RootState) => getActiveChannel(state));
+  const channels = useSelector(selectChannels);
+  const activeChannel = useSelector(getActiveChannel);
   const activeIndex = activeChannel?.id ?? 0;
 
   return (
@@ -88,7 +87,7 @@ export default function Channels() {
       </div>
       <div className="channels-title ">
         <ul className="p-0">
-          { data && channels.map((channel: Channel) => 
+          { channels.map((channel: Channel) =>
               !channel.removable && 
               <li key={channel.id}>
                 <button 
@@ -99,7 +98,7 @@ export default function Channels() {
             )      
           }
           {
-            data && channels.map((channel: Channel) => 
+              channels.map((channel: Channel) =>
               channel.removable &&
               <li key={channel.id}>
                 <Dropdown as={ButtonGroup} className="d-flex">

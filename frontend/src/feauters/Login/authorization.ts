@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import routes from '../../app/apiRoutes';
-import { User } from './AuthForm';
+import { User } from './Login';
 
 const authorize = async (values: User): Promise<AxiosResponse<{ username: string; token: string}>> => {
   const loginRoute = routes.login();

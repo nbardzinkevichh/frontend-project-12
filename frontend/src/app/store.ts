@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux'
 
-import authSlice from '../feauters/AuthForm/authSlice';
+import authSlice from '../feauters/Login/authSlice';
 import messagesSlice from '../feauters/Messages/messagesSlice';
 import channelsSlice from '../feauters/Channels/channelsSlice';
 
