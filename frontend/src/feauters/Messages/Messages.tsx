@@ -49,7 +49,8 @@ export default function Messages() {
   const handleInputMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputMessage(e.target.value);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>)  => {
     e.preventDefault();
-    sendMessage({ message: inputMessage, channelId: activeIndex });
+    const username: string = localStorage.getItem("username")!;
+    sendMessage({ message: inputMessage, channelId: activeIndex,  username });
     setInputMessage('');
   };
 
@@ -65,6 +66,7 @@ export default function Messages() {
       </div>
       
       <div className="message-box px-5 overflow-auto">
+
         { isSuccess && activeMessages.map((msg) => <div key={msg.id} className="text-break mb-2"><b>{msg.username}: </b>{msg.body}</div>)}
         
       </div>

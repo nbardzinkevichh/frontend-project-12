@@ -8,7 +8,7 @@ export interface Message {
   id?: string;
   body: string;
   channelId: string;
-  username?: string;
+  username: string;
 };
 
 type Messages = {

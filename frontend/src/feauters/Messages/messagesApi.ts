@@ -4,7 +4,6 @@ import store from '../../app/store';
 import { Message } from './messagesSlice';
 
 const baseUrl = routes.messages();
-const username = localStorage.getItem('username');
 
 export const messagesApi = createApi({
   reducerPath: 'messagesApi',
@@ -25,8 +24,8 @@ export const messagesApi = createApi({
     editMessage: builder.mutation<Message, void>({
       query: (id) => '',
     }),
-    sendMessage: builder.mutation<Message, { message: string, channelId: string | 0 }>({
-      query: ({ message, channelId }) => ({
+    sendMessage: builder.mutation<Message, { message: string, channelId: string | 0, username: string }>({
+      query: ({ message, channelId, username }) => ({
         url: '',
         method: 'POST',
         body: { body: message, channelId, username }
