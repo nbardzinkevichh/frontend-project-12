@@ -1,0 +1,22 @@
+{
+  "passwordInput": "Пароль",
+  "registration": "Регистрация",
+  "login": {
+    "title": "Войти",
+    "usernameInput": "Ваш ник",
+    "loginButton": "Войти",
+    "footer": {
+      "noAccount": "Нет аккаунта?"
+
+    }
+  },
+  "signup": {
+    "usernameInput": "Имя пользователя",
+    "passwordConfirmationInput": "Подтвердите пароль",
+    "signupButton": "Зарегистрироваться"
+  },
+  "validation": {
+    "title": "asd"
+  }
+
+}

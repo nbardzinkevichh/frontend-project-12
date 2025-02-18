@@ -1,0 +1,7 @@
+{
+  "notFound": {
+    "notFoundError": "404 NOT FOUND!",
+    "notFoundDescription": "Вернуться на",
+    "notFoundLink": "главную страницу"
+  }
+}

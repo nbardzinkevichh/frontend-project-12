@@ -1,0 +1,11 @@
+{
+  "networkError": "Ошибка сети",
+  "dataLoadingError": "Ошибка в загрузке данных",
+  "channels": {
+    "success": {
+      "create": "Канал создан",
+      "remove": "Канал удалён",
+      "rename": "Канал переименован"
+    }
+  }
+}

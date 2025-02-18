@@ -4,46 +4,61 @@ import { useSelector } from "react-redux";
 
 import { selectChannels} from "./channelsSlice";
 
+import RemoveChannelModal from "./RemoveChannelModal";
+
 import { useAddChannelMutation, useEditChannelMutation } from "./channelsApi";
 
 import { Modal, Form, Button } from "react-bootstrap";
 
 import { channelFieldValidation } from "./channelFieldValidation";
+import {useTranslation} from "react-i18next";
+import {showError} from "../../toastify/toasts.ts";
 
 interface ChannelModalProps {
-  mode: 'add' | 'edit';
-  setModalMode: (arg: 'add' | 'edit') => void ;
+  mode: 'add' | 'edit' | 'delete';
+  setModalMode: (arg: 'add' | 'edit' | 'delete') => void;
   show: boolean;
-  handleModalClose: (arg: 'add') => void;
+  handleModalClose: () => void;
   existingChannel?: { id: string, name: string };
 }
 
-const ChannelModal: React.FC<ChannelModalProps> = ({ mode, setModalMode, show, handleModalClose, existingChannel }): JSX.Element => {
+const ChannelModal: React.FC<ChannelModalProps> = (
+  { mode, setModalMode, show, handleModalClose, existingChannel }
+) => {
+  const { t } = useTranslation('toasts');
   const [addChannel] = useAddChannelMutation();
   const [editChannel] = useEditChannelMutation();
   const channels = useSelector(selectChannels);
 
   const initialValues = { name: existingChannel?.name ?? '' };
 
-  // ADD TOASTIFY TO HANDLE ERRORS/SUCCESS
-  const handleSubmit = async (value: { name: string}, { setSubmitting, setErrors, resetForm }: FormikHelpers<typeof initialValues>): Promise<void> => {
+  if (mode === 'delete') {
+    return <RemoveChannelModal show={show} handleModalClose={handleModalClose} existingChannel={existingChannel!} />;
+  }
+
+  const handleSubmit =
+    async (value: { name: string }, { setSubmitting, resetForm }:
+  FormikHelpers<typeof initialValues>): Promise<void> => {
+    console.log(value);
     setSubmitting(false);
     try {
       if (mode === 'add') {
-        await addChannel(value);
-      } else {
-        await editChannel({id: existingChannel!.id, name: value.name});
+        await addChannel(value)
+      } else if (mode === 'edit') {
+        await editChannel({ id: existingChannel!.id, name: value.name })
       }
 
       resetForm();
-      handleModalClose('add');
+      handleModalClose();
       setModalMode('add');
       
     } catch (e) {
-      console.log(e)
-      // setErrors();
+      console.error(e);
+      showError(t('networkError'));
     }
   };
+
+
 
   return (
     <Formik
@@ -58,9 +73,9 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ mode, setModalMode, show, h
         handleSubmit,
       }) => (
         <>
-            <Modal show={show} onHide={() => handleModalClose('add')}>
+            <Modal show={show} onHide={handleModalClose}>
             <Modal.Header closeButton>
-              <Modal.Title>{mode === 'add' ? 'Добавить канал' : 'Переименовать канал'}</Modal.Title>
+              <Modal.Title>{mode === 'add' ? 'Добавить канал' : mode === 'delete' ? 'Удалить канал' : 'Переименовать канал'}</Modal.Title>
             </Modal.Header>
             <Form onSubmit={handleSubmit}> 
             <Modal.Body>

@@ -17,7 +17,8 @@ const Chat = () => {
   }
   
   return (
-    <div className="d-flex flex-column h-100">
+    // cпросить здесь про div, если внешнему диву добавить классов/стилей он просто не отображается, пришлось ставить руту классы
+    <>
       <Header status='loggedIn' logOut={logOut} />
       <Container className="my-4 rounded overflow-hidden shadow h-100">
         <Row className="bg-white flex-md-row h-100 ">
@@ -30,7 +31,7 @@ const Chat = () => {
         </Row>
         
       </Container>
-    </div>
+    </>
   )
 };
 

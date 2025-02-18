@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { setMessages } from "./messagesSlice";
 
 import { ToastContainer, toast } from "react-toastify";
-import { toastifyConfig } from "../../configs/toastifyConfig";
+import { toastifyConfig } from "../../toastify/toastifyConfig";
 import "react-toastify/dist/ReactToastify.css";
 
 
@@ -21,10 +21,6 @@ export default function Messages() {
   const [inputMessage, setInputMessage] = useState('');
 
   // ДОБАВИТЬ ОБРАБОТКУ ISLOADING ISSUCCESS ERROR //
-
-  const showError = (errorMessage: string) => {
-    toast.error(errorMessage, toastifyConfig);
-  };
 
   const [sendMessage, { error: sentMessageError }] = useSendMessageMutation();
   const { data, error, isLoading, isSuccess } = useGetMessagesQuery();
