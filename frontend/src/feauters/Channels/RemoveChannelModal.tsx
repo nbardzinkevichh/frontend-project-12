@@ -1,21 +1,27 @@
 import {Button, Modal} from "react-bootstrap";
 import { useRemoveChannelMutation } from './channelsApi';
+import {useTranslation} from "react-i18next";
+import {showSuccess} from "../../toastify/toasts.ts";
 
 // нам в случае модального окна который удаляет канал нужен другой обработчик handlesubmit
 
 interface RemoveChannelModalProps {
   show: boolean;
+  setModalMode: (arg: 'add' | 'edit' | 'remove') => void;
   handleModalClose: () => void;
   existingChannel: { id: string; name: string };
 }
 
 const RemoveChannelModal =
-  ({ show, handleModalClose, existingChannel}: RemoveChannelModalProps) => {
+  ({ show, setModalMode, handleModalClose, existingChannel}: RemoveChannelModalProps) => {
   const [removeChannel] = useRemoveChannelMutation();
+  const { t } = useTranslation('toasts');
 
   const handleSubmit = async () => {
     await removeChannel(existingChannel.id);
+    setModalMode('add');
     handleModalClose();
+    showSuccess(t('channels.success.remove'))
   }
 
   return (

@@ -6,17 +6,17 @@ import { selectChannels} from "./channelsSlice";
 
 import RemoveChannelModal from "./RemoveChannelModal";
 
-import { useAddChannelMutation, useEditChannelMutation } from "./channelsApi";
+import {useAddChannelMutation, useEditChannelMutation } from "./channelsApi";
 
 import { Modal, Form, Button } from "react-bootstrap";
 
 import { channelFieldValidation } from "./channelFieldValidation";
 import {useTranslation} from "react-i18next";
-import {showError} from "../../toastify/toasts.ts";
+import {showError, showSuccess} from "../../toastify/toasts.ts";
 
 interface ChannelModalProps {
-  mode: 'add' | 'edit' | 'delete';
-  setModalMode: (arg: 'add' | 'edit' | 'delete') => void;
+  mode: 'add' | 'edit' | 'remove';
+  setModalMode: (arg: 'add' | 'edit' | 'remove') => void;
   show: boolean;
   handleModalClose: () => void;
   existingChannel?: { id: string, name: string };
@@ -32,37 +32,38 @@ const ChannelModal: React.FC<ChannelModalProps> = (
 
   const initialValues = { name: existingChannel?.name ?? '' };
 
-  if (mode === 'delete') {
-    return <RemoveChannelModal show={show} handleModalClose={handleModalClose} existingChannel={existingChannel!} />;
+  if (mode === 'remove') {
+    return <RemoveChannelModal show={show} setModalMode={setModalMode} handleModalClose={handleModalClose} existingChannel={existingChannel!} />;
   }
 
   const handleSubmit =
     async (value: { name: string }, { setSubmitting, resetForm }:
   FormikHelpers<typeof initialValues>): Promise<void> => {
-    console.log(value);
     setSubmitting(false);
     try {
       if (mode === 'add') {
-        await addChannel(value)
-      } else if (mode === 'edit') {
-        await editChannel({ id: existingChannel!.id, name: value.name })
+        await addChannel(value);
+        showSuccess(t('channels.success.create'));
       }
 
+      if (mode === 'edit') {
+        await editChannel({ id: existingChannel!.id, name: value.name });
+        showSuccess(t('channels.success.rename'));
+      }
       resetForm();
       handleModalClose();
       setModalMode('add');
-      
+
+
     } catch (e) {
       console.error(e);
       showError(t('networkError'));
     }
   };
 
-
-
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{ ...initialValues, name: '' }}
       validateOnChange={false}
       onSubmit={handleSubmit}
       validationSchema={channelFieldValidation(channels)}
@@ -73,38 +74,39 @@ const ChannelModal: React.FC<ChannelModalProps> = (
         handleSubmit,
       }) => (
         <>
-            <Modal show={show} onHide={handleModalClose}>
+          <Modal show={show} onHide={handleModalClose}>
             <Modal.Header closeButton>
-              <Modal.Title>{mode === 'add' ? 'Добавить канал' : mode === 'delete' ? 'Удалить канал' : 'Переименовать канал'}</Modal.Title>
+              <Modal.Title>{mode === 'add' ? 'Добавить канал' : 'Удалить канал'}</Modal.Title>
             </Modal.Header>
-            <Form onSubmit={handleSubmit}> 
-            <Modal.Body>
-           
-              <Field
-                as={Form.Control}
-                name="name"
-                required  
-                type="text"
-                placeholder=""
-                className={`mb-3 ${
-                  touched.name && errors.name ? "is-invalid" : ""
-                }`}
-              />
-              <div className="invalid-feedback">{errors.name}</div>
-         
-            
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => handleModalClose('add')}>
-                Отменить
-              </Button>
-        
-              <Button variant="primary" type="submit">
-                Отправить
-              </Button>
-            </Modal.Footer>
+            <Form onSubmit={handleSubmit}>
+              <Modal.Body>
+
+                <Field
+                  as={Form.Control}
+                  name="name"
+                  required
+                  type="text"
+                  placeholder=""
+                  className={`mb-3 ${
+                    touched.name && errors.name ? "is-invalid" : ""
+                  }`}
+                />
+                <div className="invalid-feedback">{errors.name}</div>
+
+
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleModalClose}>
+                  Отменить
+                </Button>
+
+                <Button variant="primary" type="submit">
+                  Отправить
+                </Button>
+              </Modal.Footer>
             </Form>
-            </Modal>
+          </Modal>
+
         </>
       )}
 

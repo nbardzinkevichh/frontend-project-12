@@ -9,23 +9,34 @@ import { Channel, setChannels } from "./channelsSlice";
 import { setActiveChannel, getActiveChannel, selectChannels } from "./channelsSlice";
 import ChannelModal from "./ChannelModal";
 import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
+import {showError} from "../../toastify/toasts.ts";
+import {useTranslation} from "react-i18next";
 
 export default function Channels() {
   const [show, setShow] = useState(false);
   const [existingChannel, setExistingChannel] = useState<{id: string; name: string}>({id: '', name: ''});
-  const [modalMode, setModalMode] = useState<'add' | 'edit' | 'delete'>('add');
+  const [modalMode, setModalMode] = useState<'add' | 'edit' | 'remove'>('add');
+
+  const { t } = useTranslation('toasts');
+
 
   const handleModalShow = () => setShow(true);
   const handleModalClose = () => setShow(false);
 
-  // ADD TOASTIFY TO HANDLE ERRORs
-  const { data, error, isLoading, isSuccess } = useGetChannelsQuery();
+  const { data, error, isSuccess } = useGetChannelsQuery();
+
+  if (error) {
+    if ('status' in error && error.status === 'FETCH_ERROR') {
+        showError(t('networkError'));
+    }
+    showError(t('dataLoadingError'));
+  }
 
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (isSuccess && data) {
       dispatch(setChannels({ channels: data }));
-      dispatch(setActiveChannel(data[0]))
+      dispatch(setActiveChannel(data[0]));
     }
   }, [data]);
 
@@ -37,7 +48,7 @@ export default function Channels() {
 
   const handleChannelDelete = (id: string, name: string): void => {
     setExistingChannel({ id, name });
-    setModalMode('delete');
+    setModalMode('remove');
     handleModalShow();
   };
 

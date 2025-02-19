@@ -10,7 +10,6 @@
   "author": "Nikolai B.",
   "license": "ISC",
   "dependencies": {
-    "@hexlet/chat-server": "^2.0.4",
-    "react-toastify": "^11.0.3"
+    "@hexlet/chat-server": "^2.0.4"
   }
 }
