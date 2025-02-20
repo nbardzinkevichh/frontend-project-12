@@ -27,15 +27,13 @@ export default function  Signup() {
   const handleSubmit = async (values: UserToRegister, { setSubmitting, setErrors, resetForm }: FormikHelpers<User>): Promise<void> => {
     try {
       setSubmitting(false);
-      console.log(values);
       await newUserRequest(values).then((response): void => {
-        console.log(response);
         const { username, token } = response.data;
         localStorage.setItem("username", username)
         localStorage.setItem("token", token)
         dispatch(setCredentials({ username, token }))
-      }).then(() => {
         resetForm();
+      }).then(() => {
         navigate("/");
       })
     } catch (e) {

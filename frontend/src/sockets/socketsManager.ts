@@ -58,8 +58,6 @@ export const useSocketsManager = () => {
       socket.off('removeChannel');
       socket.off('renameChannel');
       socket.disconnect();
-      localStorage.clear();
-
     }
   }, [dispatch])
 };
