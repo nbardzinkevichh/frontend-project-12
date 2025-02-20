@@ -17,9 +17,6 @@ export default function Channels() {
   const [existingChannel, setExistingChannel] = useState<{id: string; name: string}>({id: '', name: ''});
   const [modalMode, setModalMode] = useState<'add' | 'edit' | 'remove'>('add');
 
-  const apiKey = process.env.ROLLBAR_ACCESS_TOKEN_R;
-
-
   const { t } = useTranslation('toasts');
 
 
