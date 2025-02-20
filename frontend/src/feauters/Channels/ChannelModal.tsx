@@ -14,6 +14,10 @@ import { channelFieldValidation } from "./channelFieldValidation";
 import {useTranslation} from "react-i18next";
 import {showError, showSuccess} from "../../toastify/toasts.ts";
 
+import leoProfanityFilter from '../../utility/leoProfanityFilter.ts';
+
+const filter = leoProfanityFilter();
+
 interface ChannelModalProps {
   mode: 'add' | 'edit' | 'remove';
   setModalMode: (arg: 'add' | 'edit' | 'remove') => void;
@@ -40,14 +44,16 @@ const ChannelModal: React.FC<ChannelModalProps> = (
     async (value: { name: string }, { setSubmitting, resetForm }:
   FormikHelpers<typeof initialValues>): Promise<void> => {
     setSubmitting(false);
+    const filteredChannelName = filter.clean(value.name);
+
     try {
       if (mode === 'add') {
-        await addChannel(value);
+        await addChannel({ name: filteredChannelName });
         showSuccess(t('channels.success.create'));
       }
 
       if (mode === 'edit') {
-        await editChannel({ id: existingChannel!.id, name: value.name });
+        await editChannel({ id: existingChannel!.id, name: filteredChannelName });
         showSuccess(t('channels.success.rename'));
       }
       resetForm();

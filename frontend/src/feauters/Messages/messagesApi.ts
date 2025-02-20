@@ -22,7 +22,7 @@ export const messagesApi = createApi({
       query: () => '',
     }),
     editMessage: builder.mutation<Message, void>({
-      query: (id) => '',
+      query: () => '',
     }),
     sendMessage: builder.mutation<Message, { message: string, channelId: string | 0, username: string }>({
       query: ({ message, channelId, username }) => ({

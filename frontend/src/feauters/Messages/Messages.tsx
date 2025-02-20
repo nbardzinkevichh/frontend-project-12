@@ -5,25 +5,24 @@ import { getActiveChannel } from "../Channels/channelsSlice";
 
 import { useSocketsManager } from "../../sockets/socketsManager";
 
-import { Message, selectMessages } from "./messagesSlice";
+import { selectMessages } from "./messagesSlice";
 
 import { useEffect, useState } from "react";
 import { setMessages } from "./messagesSlice";
 
-import { ToastContainer, toast } from "react-toastify";
-import { toastifyConfig } from "../../toastify/toastifyConfig";
-import "react-toastify/dist/ReactToastify.css";
+import leoProfanityFilter from '../../utility/leoProfanityFilter.ts';
 
+const filter = leoProfanityFilter();
 
 export default function Messages() {
   useSocketsManager();
 
   const [inputMessage, setInputMessage] = useState('');
 
-  // ДОБАВИТЬ ОБРАБОТКУ ISLOADING ISSUCCESS ERROR //
+  // ДОБАВИТЬ показ всплывающих уведомлений об ошибках?? и при отправке сообщений //
 
-  const [sendMessage, { error: sentMessageError }] = useSendMessageMutation();
-  const { data, error, isLoading, isSuccess } = useGetMessagesQuery();
+  const [sendMessage] = useSendMessageMutation();
+  const { data, isSuccess } = useGetMessagesQuery();
   const messages = useSelector(selectMessages);
 
   const dispatch = useAppDispatch();
@@ -34,10 +33,6 @@ export default function Messages() {
     }
   }, [isSuccess, data, dispatch]);
 
-  if (error) {
-    showError('Ошибка при получениии сообщений');
-  }
-
   const activeChannel = useSelector((state: RootState) => getActiveChannel(state));
   const activeIndex = activeChannel?.id ?? 0;
   const activeMessages = messages?.filter((message) => message.channelId === activeIndex) || [];
@@ -46,13 +41,10 @@ export default function Messages() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>)  => {
     e.preventDefault();
     const username: string = localStorage.getItem("username")!;
-    sendMessage({ message: inputMessage, channelId: activeIndex,  username });
+    const filteredMessage = filter.clean(inputMessage);
+    sendMessage({ message: filteredMessage, channelId: activeIndex,  username });
     setInputMessage('');
   };
-
-  if (sentMessageError) {
-    showError('Ошибка при отправке сообщения')
-  }
 
   return (
     <div className="d-flex flex-column bg-white h-100">
@@ -66,8 +58,6 @@ export default function Messages() {
         { isSuccess && activeMessages.map((msg) => <div key={msg.id} className="text-break mb-2"><b>{msg.username}: </b>{msg.body}</div>)}
         
       </div>
-      <ToastContainer aria-label="Notification container" />
-
 
       <div className="mt-auto px-5 py-3">
         <form className="border rounded" action="" onSubmit={handleSubmit}>
