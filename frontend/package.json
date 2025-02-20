@@ -6,8 +6,9 @@
   "proxy": "http://localhost:5001",
   "scripts": {
     "dev": "vite",
+    "start": "npx start-server -s ./dist",
     "build": "vite build",
-    "start": "start-server -s ./frontend/dist"
+    "serve": "vite preview"
   },
   "dependencies": {
     "@eslint/js": "^9.17.0",

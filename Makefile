@@ -13,3 +13,6 @@ start:
 build:
 	rm -rf frontend/dist
 	npm run build
+
+lint-frontend:
+	make -C frontend lint

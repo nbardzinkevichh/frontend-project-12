@@ -4,8 +4,9 @@
   "description": "[![Actions Status](https://github.com/nbardzinkevichh/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/nbardzinkevichh/frontend-project-12/actions)",
   "main": "index.js",
   "scripts": {
-    "start": "npx start-server -s ./dist",
-    "build": "npm run build --prefix frontend"
+    "build": "npm run build --prefix frontend",
+    "start": "start-server -s ./frontend/dist",
+    "postinstall": "cd frontend && npm ci"
   },
   "author": "Nikolai B.",
   "license": "ISC",
