@@ -69,7 +69,7 @@ export default function Channels() {
       <div className="d-flex justify-content-between border-bottom p-4">
         <b>Каналы</b>
         <div className="modalButton">
-          <button 
+          <button
           className="p-0 text-primary btn btn-group-vertical border-0" 
           onClick={handleModalShow}
           type="button">
@@ -90,7 +90,7 @@ export default function Channels() {
               !channel.removable && 
               <li key={channel.id}>
 
-                <button 
+                <button
                 onClick={() => handleChannelChange(channel.id)}
                 className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary' : ''}`} type="button">
                   <span># </span>
@@ -107,7 +107,7 @@ export default function Channels() {
                   <Button
                   onClick={() => handleChannelChange(channel.id)}
                   variant=""
-                  className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary' : ''}`}># {channel.name}</Button>
+                  className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary' : ''}`}><span># </span>{channel.name}</Button>
 
                   <Dropdown.Toggle split className={`${channel.id === activeIndex ? 'btn-secondary' : ''}`} variant="" id="dropdown-split-basic" />
 

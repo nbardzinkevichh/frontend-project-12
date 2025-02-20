@@ -22,7 +22,7 @@ interface ServerToClientEvents {
 
 type ClientToServerEvents = ServerToClientEvents;
 
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io('/', { path: '/socket.io', autoConnect: false });
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io('/', { path: '/socket.io' });
 
 export const useSocketsManager = () => {
   const dispatch = useAppDispatch();
