@@ -11,8 +11,7 @@ const Chat = () => {
   const navigate = useNavigate();
 
   const logOut = (): void => {
-    localStorage.removeItem('username');
-    localStorage.removeItem('token');
+    localStorage.clear();
     navigate('/login');
   }
   

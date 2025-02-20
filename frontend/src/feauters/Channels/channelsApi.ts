@@ -10,6 +10,7 @@ export const channelsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl,
     prepareHeaders: (headers) => {
       const TOKEN: unknown = store.getState().auth.token;
+      console.log(TOKEN);
       if (TOKEN) {
         headers.set('Authorization', `Bearer ${TOKEN}`);
       }

@@ -29,7 +29,9 @@ const rollbarConfig = {
 
 function App() {
   const currentUser = useSelector(selectCurrentUser);
+  console.log(currentUser);
   const isLoggedIn = currentUser === null ? false : true;
+  console.log(isLoggedIn);
 
   return (
     <Provider config={rollbarConfig}>
