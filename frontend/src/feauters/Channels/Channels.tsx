@@ -93,7 +93,7 @@ export default function Channels() {
                 <button
                 onClick={() => handleChannelChange(channel.id)}
                 className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary' : ''}`} type="button">
-                  <span># </span>
+                  <span className="me-1">#</span>
                   {channel.name}
                 </button>
               </li>
@@ -107,7 +107,7 @@ export default function Channels() {
                   <Button
                   onClick={() => handleChannelChange(channel.id)}
                   variant=""
-                  className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary' : ''}`}><span># </span>{channel.name}</Button>
+                  className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary' : ''}`}><span className="me-1">#</span>{channel.name}</Button>
 
                   <Dropdown.Toggle split className={`${channel.id === activeIndex ? 'btn-secondary' : ''}`} variant="" id="dropdown-split-basic" />
 
