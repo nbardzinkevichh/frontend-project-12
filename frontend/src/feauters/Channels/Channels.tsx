@@ -78,9 +78,7 @@ export default function Channels() {
               </path>
             </svg>
           </button>
-        <ChannelModal mode={modalMode} setModalMode={setModalMode} show={show} handleModalClose={handleModalClose} existingChannel={existingChannel} />
-
-          
+          <ChannelModal mode={modalMode} setModalMode={setModalMode} show={show} handleModalClose={handleModalClose} existingChannel={existingChannel} />
         </div>
         
       </div>
@@ -100,23 +98,23 @@ export default function Channels() {
             )      
           }
           {
-              channels.map((channel: Channel) =>
-              channel.removable &&
-              <li key={channel.id}>
-                <Dropdown as={ButtonGroup} className="d-flex">
-                  <Button
-                  onClick={() => handleChannelChange(channel.id)}
-                  variant=""
-                  className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary' : ''}`}><span className="me-1">#</span>{channel.name}</Button>
+            channels.map((channel: Channel) =>
+            channel.removable &&
+            <li key={channel.id}>
+              <Dropdown as={ButtonGroup} className="d-flex">
+                <Button
+                onClick={() => handleChannelChange(channel.id)}
+                variant=""
+                className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary' : ''}`}><span className="me-1">#</span>{channel.name}</Button>
 
-                  <Dropdown.Toggle split className={`${channel.id === activeIndex ? 'btn-secondary' : ''}`} variant="" id="dropdown-split-basic" />
+                <Dropdown.Toggle split className={`${channel.id === activeIndex ? 'btn-secondary' : ''}`} variant="" id="dropdown-split-basic" />
 
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="" onClick={() => handleChannelDelete(channel.id, channel.name)}>Удалить</Dropdown.Item>
-                    <Dropdown.Item href="" onClick={() => handleChannelNameEdit(channel.id, channel.name)}>Переименовать</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </li>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="" onClick={() => handleChannelDelete(channel.id, channel.name)}>Удалить</Dropdown.Item>
+                  <Dropdown.Item href="" onClick={() => handleChannelNameEdit(channel.id, channel.name)}>Переименовать</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </li>
             )
           }
           
