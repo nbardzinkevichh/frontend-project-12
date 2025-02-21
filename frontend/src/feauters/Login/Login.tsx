@@ -11,8 +11,8 @@ import Header from "../../components/Header.tsx";
 import {useTranslation} from 'react-i18next';
 
 export interface User {
-  username: string;
-  password: string;
+  username?: string;
+  password?: string;
 }
 
 const FormikFeedBackError = ({ message } : { message: string}) => {

@@ -4,8 +4,8 @@ import * as Yup from 'yup';
 export const formSchema: Yup.Schema<User> = Yup.object().shape({
   username: Yup
     .string()
-    .min(3, 'Не менее 3 символов')
-    .max(20, 'Не более 20 символов')
+    .min(3, 'От 3 до 20 символов')
+    .max(20, 'От 3 до 20 символов')
     .required('Обязательное поле'),
   password: Yup
     .string()
