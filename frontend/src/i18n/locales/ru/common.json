@@ -1,5 +1,7 @@
 {
   "title": "Hexlet Chat",
-  "logout": "Выйти"
+  "logout": "Выйти",
+  "rename": "Переименовать",
+  "remove": "Удалить"
 
 }

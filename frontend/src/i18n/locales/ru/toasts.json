@@ -1,5 +1,5 @@
 {
-  "networkError": "Ошибка сети",
+  "networkError": "Ошибка соединения",
   "dataLoadingError": "Ошибка в загрузке данных",
   "channels": {
     "success": {

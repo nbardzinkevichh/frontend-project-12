@@ -8,13 +8,11 @@ import newUserRequest from "./newUserRequest.ts";
 import {setCredentials} from "../Login/authSlice.ts";
 import Header from "../../components/Header.tsx";
 import {useTranslation} from "react-i18next";
+import axios from "axios";
 
 export interface UserToRegister extends User {
   passwordConfirmation: string;
 };
-
-
-// При попытке регистрации пользователя с уже существующим логином, сервер ответит ошибкой с кодом 409. Реализуйте обработку ошибки серверной валидации показом соответствующего сообщения.
 
 export default function  Signup() {
   const { t } = useTranslation('forms');
@@ -24,7 +22,8 @@ export default function  Signup() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleSubmit = async (values: UserToRegister, { setSubmitting, setErrors, resetForm }: FormikHelpers<User>): Promise<void> => {
+  const handleSubmit =
+    async (values: UserToRegister, { setSubmitting, setErrors, resetForm }: FormikHelpers<UserToRegister>): Promise<void> => {
     try {
       setSubmitting(false);
       await newUserRequest(values).then((response): void => {
@@ -36,13 +35,14 @@ export default function  Signup() {
       }).then(() => {
         navigate("/");
       })
-    } catch (e) {
-      if (e.status === 409) {
-        setErrors({ username: 'Такой пользователь уже существует' });
-      } else {
-        setErrors({ username: "Неверные имя пользователя или пароль" });
+    } catch (e: unknown) {
+      if (axios.isAxiosError(e)) {
+        if (e.status === 409) {
+          setErrors({ username: 'Такой пользователь уже существует' });
+        } else {
+          setErrors({ username: "Неверные имя пользователя или пароль" });
+        }
       }
-
     }
   };
 
@@ -66,12 +66,12 @@ export default function  Signup() {
               <h1>Регистрация</h1>
               <Form onSubmit={handleSubmit} className="d-flex gap-20 flex-column">
                 <FloatingLabel
+                  controlId="username"
                   label={t("signup.usernameInput")}
                 >
                   <Field
                     as={Form.Control}
                     name="username"
-                    id="usernameInput"
                     type="text"
                     placeholder="Имя пользователя"
                     className='mb-3'
@@ -82,17 +82,13 @@ export default function  Signup() {
                   </ErrorMessage>
                 </FloatingLabel>
 
-
-
-
                 <FloatingLabel
-
+                  controlId="password"
                   label={t('passwordInput')}
                 >
                   <Field
                     as={Form.Control}
                     name="password"
-                    id="password"
                     type="password"
                     placeholder="Пароль"
                     className='mb-3'
@@ -102,19 +98,15 @@ export default function  Signup() {
                   <ErrorMessage name='password' >
                     { msg => <div className="invalid-feedback mb-2">{msg}</div>}
                   </ErrorMessage>
-
                 </FloatingLabel>
 
-
-
-
                 <FloatingLabel
+                  controlId="passwordConfirmation"
                   label={t('signup.passwordConfirmationInput')}
                 >
                   <Field
                     as={Form.Control}
                     name="passwordConfirmation"
-                    id="passwordConfirmation"
                     type="password"
                     placeholder="Подвердите пароль"
                     className='mb-3'
@@ -125,9 +117,6 @@ export default function  Signup() {
                     { msg => <div className="invalid-feedback">{msg}</div>}
                   </ErrorMessage>
                 </FloatingLabel>
-
-
-
 
                 <Button variant="primary" type="submit" className="mt-2 py-2">
                   {t('signup.signupButton')}

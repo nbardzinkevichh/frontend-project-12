@@ -13,8 +13,8 @@ interface AuthState {
 const slice = createSlice({
   name: 'auth',
   initialState: { 
-    username: null,
-    token: null,
+    username: localStorage.getItem('username') || null,
+    token: localStorage.getItem('token') || null,
    } as AuthState,
   reducers: {
     setCredentials: (

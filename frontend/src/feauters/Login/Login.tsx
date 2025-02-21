@@ -66,12 +66,12 @@ export default function  AuthForm() {
             <h1 className="mb-4">{t('login.title')}</h1>
             <Form onSubmit={handleSubmit}>
               <FloatingLabel
+                controlId="username"
                 label={t('login.usernameInput')}
               >
                 <Field
                   as={Form.Control}
                   name="username"
-                  id="username"
                   required
                   type="text"
                   placeholder={t('login.usernameInput')}
@@ -81,6 +81,7 @@ export default function  AuthForm() {
               </FloatingLabel>
 
               <FloatingLabel
+                controlId="password"
                 label={t('passwordInput')}
               >
                 <Field
@@ -88,7 +89,6 @@ export default function  AuthForm() {
                   required
                   name="password"
                   type="password"
-                  id="password"
                   placeholder={t('passwordInput')}
                   className='mb-3'
                   isInvalid={!!errors.username && touched.username}

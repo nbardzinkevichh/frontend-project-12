@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import routes from '../router/routes.ts';
 
 import { useSelector } from 'react-redux';
-import {selectCurrentToken, selectCurrentUser} from '../feauters/Login/authSlice.ts';
+import {selectCurrentUser} from '../feauters/Login/authSlice.ts';
 
 import Signup from '../feauters/Signup/Signup.tsx';
 import Chat from '../pages/Chat.tsx';
@@ -10,8 +10,6 @@ import AuthForm from '../feauters/Login/Login.tsx';
 import NotFound from '../pages/NotFound.tsx';
 
 import {ErrorBoundary, Provider} from '@rollbar/react';
-import {useEffect, useState} from "react";
-import axios from "axios";
 
 const rollbarAccessToken = process.env.ROLLBAR_ACCESS_TOKEN_W;
 
@@ -30,16 +28,9 @@ const rollbarConfig = {
 };
 
 function App() {
-  const token = useSelector(selectCurrentToken);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const username = useSelector(selectCurrentUser);
 
-  useEffect(() => {
-    if (token) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, [token]);
+  const isLoggedIn = username === null ? false : true;
 
   return (
     <Provider config={rollbarConfig}>

@@ -18,6 +18,7 @@ export default function Channels() {
   const [modalMode, setModalMode] = useState<'add' | 'edit' | 'remove'>('add');
 
   const { t } = useTranslation('toasts');
+  const { t: tDropdowns} = useTranslation();
 
 
   const handleModalShow = () => setShow(true);
@@ -110,8 +111,8 @@ export default function Channels() {
                 <Dropdown.Toggle split className={`${channel.id === activeIndex ? 'btn-secondary' : ''}`} variant="" id="dropdown-split-basic" />
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href="" onClick={() => handleChannelDelete(channel.id, channel.name)}>Удалить</Dropdown.Item>
-                  <Dropdown.Item href="" onClick={() => handleChannelNameEdit(channel.id, channel.name)}>Переименовать</Dropdown.Item>
+                  <Dropdown.Item href="" onClick={() => handleChannelDelete(channel.id, channel.name)}>{tDropdowns('remove')}</Dropdown.Item>
+                  <Dropdown.Item href="" onClick={() => handleChannelNameEdit(channel.id, channel.name)}>{tDropdowns('rename')}</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </li>
