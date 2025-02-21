@@ -86,10 +86,11 @@ const ChannelModal: React.FC<ChannelModalProps> = (
             </Modal.Header>
             <Form onSubmit={handleSubmit}>
               <Modal.Body>
-
+                <label htmlFor="name" className="visually-hidden">Имя канала</label>
                 <Field
                   as={Form.Control}
                   name="name"
+                  id="name"
                   required
                   type="text"
                   placeholder=""
