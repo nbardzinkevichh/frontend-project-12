@@ -12,7 +12,7 @@ import axios from "axios";
 
 export interface UserToRegister extends User {
   passwordConfirmation: string;
-};
+}
 
 export default function  Signup() {
   const { t } = useTranslation('forms');

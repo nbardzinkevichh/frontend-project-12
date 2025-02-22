@@ -75,12 +75,20 @@ export default function Channels() {
           onClick={handleModalShow}
           type="button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
-              <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"></path><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4">
+              <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z">
+              </path>
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4">
               </path>
             </svg>
             <span className="visually-hidden">+</span>
           </button>
-          <ChannelModal mode={modalMode} setModalMode={setModalMode} show={show} handleModalClose={handleModalClose} existingChannel={existingChannel} />
+          <ChannelModal
+            mode={modalMode}
+            setModalMode={setModalMode}
+            show={show}
+            handleModalClose={handleModalClose}
+            existingChannel={existingChannel}
+          />
         </div>
         
       </div>
@@ -92,7 +100,8 @@ export default function Channels() {
 
                 <button
                 onClick={() => handleChannelChange(channel.id)}
-                className={`${sharedButtonClasses} text-truncate btn ${channel.id === activeIndex ? 'btn-secondary' : ''}`} type="button">
+                className={`${sharedButtonClasses} 
+                text-truncate btn ${channel.id === activeIndex ? 'btn-secondary' : ''}`} type="button">
                   <span className="me-1">#</span>
                   {channel.name}
                 </button>
@@ -106,7 +115,10 @@ export default function Channels() {
               <Dropdown as={ButtonGroup} className="d-flex">
                 <button
                 onClick={() => handleChannelChange(channel.id)}
-                className={`${sharedButtonClasses} text-truncate btn ${channel.id === activeIndex ? 'btn-secondary' : ''}`}><span className="me-1">#</span>{channel.name}</button>
+                className={`${sharedButtonClasses}
+                text-truncate btn ${channel.id === activeIndex ? 'btn-secondary' : ''}`}>
+                  <span className="me-1">#</span>{channel.name}
+                </button>
 
                 <Dropdown.Toggle split className={`${channel.id === activeIndex ? 'btn-secondary' : ''}`} variant=""
                                  id="dropdown-split-basic">
@@ -114,16 +126,16 @@ export default function Channels() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href="" onClick={() => handleChannelDelete(channel.id, channel.name)}>{tDropdowns('remove')}</Dropdown.Item>
-                  <Dropdown.Item href="" onClick={() => handleChannelNameEdit(channel.id, channel.name)}>{tDropdowns('rename')}</Dropdown.Item>
+                  <Dropdown.Item href="" onClick={
+                    () => handleChannelDelete(channel.id, channel.name)}>{tDropdowns('remove')}</Dropdown.Item>
+                  <Dropdown.Item href="" onClick={
+                    () => handleChannelNameEdit(channel.id, channel.name)}>{tDropdowns('rename')}</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </li>
             )
           }
-          
         </ul>
-        
       </div>
     </>
   )

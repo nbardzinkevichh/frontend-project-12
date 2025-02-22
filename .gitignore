@@ -6,4 +6,5 @@
 *.ntvs*
 *.njsproj
 *.sln
+node_modules
 *.sw?

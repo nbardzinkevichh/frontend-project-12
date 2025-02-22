@@ -7,7 +7,3 @@ declare module "i18next" {
     resources: typeof resources;
   }
 }
-
-// console.log(typeof defaultNS);
-
-// почему бы не заменить interface/type на просто объявление объекта к примеру и просто не приписать typeof?

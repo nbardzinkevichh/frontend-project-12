@@ -3,8 +3,6 @@ import { useRemoveChannelMutation } from './channelsApi';
 import {useTranslation} from "react-i18next";
 import {showSuccess} from "../../toastify/toasts.ts";
 
-// нам в случае модального окна который удаляет канал нужен другой обработчик handlesubmit
-
 interface RemoveChannelModalProps {
   show: boolean;
   setModalMode: (arg: 'add' | 'edit' | 'remove') => void;

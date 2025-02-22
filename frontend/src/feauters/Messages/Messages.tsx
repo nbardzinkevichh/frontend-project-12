@@ -19,8 +19,6 @@ export default function Messages() {
 
   const [inputMessage, setInputMessage] = useState('');
 
-  // ДОБАВИТЬ показ всплывающих уведомлений об ошибках?? и при отправке сообщений //
-
   const [sendMessage] = useSendMessageMutation();
   const { data, isSuccess } = useGetMessagesQuery();
   const messages = useSelector(selectMessages);
@@ -37,7 +35,8 @@ export default function Messages() {
   const activeIndex = activeChannel?.id ?? 0;
   const activeMessages = messages?.filter((message) => message.channelId === activeIndex) || [];
 
-  const handleInputMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputMessage(e.target.value);
+  const handleInputMessageChange =
+    (e: React.ChangeEvent<HTMLInputElement>) => setInputMessage(e.target.value);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>)  => {
     e.preventDefault();
     const username: string = localStorage.getItem("username")!;
@@ -54,9 +53,11 @@ export default function Messages() {
       </div>
       
       <div className="message-box px-5 overflow-auto">
-
-        { isSuccess && activeMessages.map((msg) => <div key={msg.id} className="text-break mb-2"><b>{msg.username}: </b>{msg.body}</div>)}
-        
+        { isSuccess && activeMessages.map(
+          (msg) => <div key={msg.id} className="text-break mb-2">
+            <b>{msg.username}: </b>{msg.body}
+          </div>
+        )}
       </div>
 
       <div className="mt-auto px-5 py-3">

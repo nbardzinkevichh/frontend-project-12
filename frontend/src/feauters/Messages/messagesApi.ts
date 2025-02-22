@@ -17,11 +17,7 @@ export const messagesApi = createApi({
     },
    }),
   endpoints: (builder) => ({
-    // builder.query<ResultType, argsType>
     getMessages: builder.query<Message[], void>({
-      query: () => '',
-    }),
-    editMessage: builder.mutation<Message, void>({
       query: () => '',
     }),
     sendMessage: builder.mutation<Message, { message: string, channelId: string | 0, username: string }>({
@@ -36,6 +32,5 @@ export const messagesApi = createApi({
 
 export const {
   useGetMessagesQuery,
-  useEditMessageMutation,
   useSendMessageMutation
 } = messagesApi;

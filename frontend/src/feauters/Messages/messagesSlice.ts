@@ -3,13 +3,12 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../../app/store';
 import { deleteChannel } from '../Channels/channelsSlice';
 
-
 export interface Message {
   id?: string;
   body: string;
   channelId: string;
   username: string;
-};
+}
 
 type Messages = {
   messages: Message[];

@@ -26,7 +26,8 @@ export default function  AuthForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleSubmit = async (values: User, { setSubmitting, setErrors, resetForm }: FormikHelpers<User>): Promise<void> => {
+  const handleSubmit =
+    async (values: User, { setSubmitting, setErrors, resetForm }: FormikHelpers<User>): Promise<void> => {
     try {
       setSubmitting(false);
       await authorize(values).then((response): void => {
@@ -97,7 +98,6 @@ export default function  AuthForm() {
               </FloatingLabel>
 
               { errors && <FormikFeedBackError message={errors.username!}/>}
-
 
               <Button variant="primary" type="submit" className="my-2 px-4">
                 {t('login.title')}

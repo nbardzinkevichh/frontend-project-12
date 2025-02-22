@@ -29,7 +29,6 @@ const rollbarConfig = {
 
 function App() {
   const username = useSelector(selectCurrentUser);
-
   const isLoggedIn = username === null ? false : true;
 
   return (

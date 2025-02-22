@@ -2,7 +2,8 @@ import * as Yup from 'yup';
 
 import { Channel } from './channelsSlice';
 
-export const channelFieldValidation = (channelNames: Channel[]): Yup.Schema<{ name: string}> => {
+export const channelFieldValidation =
+  (channels: Channel[]): Yup.Schema<{ name: string}> => {
   return Yup.object().shape({
     name: Yup
       .string()
@@ -10,7 +11,7 @@ export const channelFieldValidation = (channelNames: Channel[]): Yup.Schema<{ na
       .min(3, 'От 3 до 20 символов')
       .max(20, 'От 3 до 20 символов')
       .test('isNameExists', 'Должно быть уникальным', (value) => {
-        return !channelNames.some((channel) => channel.name === value)
+        return !channels.some((channel) => channel.name === value)
       })
   })
 };

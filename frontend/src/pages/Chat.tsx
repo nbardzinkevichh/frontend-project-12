@@ -17,7 +17,6 @@ const Chat = () => {
   }
   
   return (
-    // cпросить здесь про div, если внешнему диву добавить классов/стилей он просто не отображается, пришлось ставить руту классы
     <>
       <Header status='loggedIn' logOut={logOut} />
       <Container className="my-4 rounded overflow-hidden shadow h-100">

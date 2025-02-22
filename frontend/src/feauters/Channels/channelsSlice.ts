@@ -8,7 +8,7 @@ export interface Channel {
   removable: boolean;
 };
 
-export type Channels = {
+export interface Channels {
   channels: Channel[];
   activeChannel: Channel | null;
 };
