@@ -109,7 +109,10 @@ export default function Channels() {
                 variant=""
                 className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary' : ''}`}><span className="me-1">#</span>{channel.name}</Button>
 
-                <Dropdown.Toggle split className={`${channel.id === activeIndex ? 'btn-secondary' : ''}`} variant="" id="dropdown-split-basic" />
+                <Dropdown.Toggle split className={`${channel.id === activeIndex ? 'btn-secondary' : ''}`} variant=""
+                                 id="dropdown-split-basic">
+                  <span className="visually-hidden">Управление каналом</span>
+                </Dropdown.Toggle>
 
                 <Dropdown.Menu>
                   <Dropdown.Item href="" onClick={() => handleChannelDelete(channel.id, channel.name)}>{tDropdowns('remove')}</Dropdown.Item>
