@@ -2,7 +2,7 @@ import { Formik, Field, FormikHelpers } from "formik";
 
 import { useSelector } from "react-redux";
 
-import { selectChannels} from "./channelsSlice";
+import {Channel, selectChannels, setActiveChannel} from "./channelsSlice";
 
 import RemoveChannelModal from "./RemoveChannelModal";
 
@@ -15,6 +15,7 @@ import {useTranslation} from "react-i18next";
 import {showError, showSuccess} from "../../toastify/toasts.ts";
 
 import leoProfanityFilter from '../../utility/leoProfanityFilter.ts';
+import {useAppDispatch} from "../../app/store.ts";
 
 const filter = leoProfanityFilter();
 
@@ -33,6 +34,7 @@ const ChannelModal: React.FC<ChannelModalProps> = (
   const [addChannel] = useAddChannelMutation();
   const [editChannel] = useEditChannelMutation();
   const channels = useSelector(selectChannels);
+  const dispatch = useAppDispatch();
 
   const initialValues = { name: existingChannel?.name ?? '' };
 
@@ -48,8 +50,8 @@ const ChannelModal: React.FC<ChannelModalProps> = (
 
     try {
       if (mode === 'add') {
-        await addChannel({ name: filteredChannelName });
-        console.log(showSuccess);
+        const response = await addChannel({ name: filteredChannelName });
+        dispatch(setActiveChannel(response.data as Channel));
         showSuccess(t('channels.success.create'));
       }
 

@@ -40,8 +40,6 @@ export const useSocketsManager = () => {
 
     socket.on('newChannel', (channel) => {
       dispatch(setChannel(channel));
-      dispatch(setActiveChannel(channel));
-
     });
 
     socket.on('removeChannel', (channel) => {

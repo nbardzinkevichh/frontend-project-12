@@ -8,7 +8,7 @@ import { useGetChannelsQuery } from "./channelsApi";
 import { Channel, setChannels } from "./channelsSlice";
 import { setActiveChannel, getActiveChannel, selectChannels } from "./channelsSlice";
 import ChannelModal from "./ChannelModal";
-import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
+import { ButtonGroup, Dropdown } from "react-bootstrap";
 import {showError} from "../../toastify/toasts.ts";
 import {useTranslation} from "react-i18next";
 
