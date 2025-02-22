@@ -59,7 +59,7 @@ export default function Channels() {
     handleModalShow();
   };
 
-  const sharedButtonClasses = "w-100 p-0 rounded-0 text-start btn p-2";
+  const sharedButtonClasses = "w-100 rounded-0 text-start btn";
 
   const channels = useSelector(selectChannels);
   const activeChannel = useSelector(getActiveChannel);
@@ -107,7 +107,7 @@ export default function Channels() {
                 <Button
                 onClick={() => handleChannelChange(channel.id)}
                 variant=""
-                className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary' : ''}`}><span className="me-1">#</span>{channel.name}</Button>
+                className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary text-truncate' : ''}`}><span className="me-1">#</span>{channel.name}</Button>
 
                 <Dropdown.Toggle split className={`${channel.id === activeIndex ? 'btn-secondary' : ''}`} variant=""
                                  id="dropdown-split-basic">
