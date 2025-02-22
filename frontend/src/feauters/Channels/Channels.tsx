@@ -86,7 +86,7 @@ export default function Channels() {
       </div>
       <div className="channels-title ">
         <ul className="p-0">
-          { data && channels.map((channel: Channel) =>
+          { channels.map((channel: Channel) =>
               !channel.removable && 
               <li key={channel.id}>
 

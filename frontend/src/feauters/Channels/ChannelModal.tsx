@@ -49,6 +49,7 @@ const ChannelModal: React.FC<ChannelModalProps> = (
     try {
       if (mode === 'add') {
         await addChannel({ name: filteredChannelName });
+        console.log(showSuccess);
         showSuccess(t('channels.success.create'));
       }
 
