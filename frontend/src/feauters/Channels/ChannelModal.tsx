@@ -65,7 +65,6 @@ const ChannelModal: React.FC<ChannelModalProps> = (
 
 
     } catch (e) {
-      console.error(e);
       showError(t('networkError'));
     }
   };

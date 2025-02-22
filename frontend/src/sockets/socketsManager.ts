@@ -34,7 +34,6 @@ export const useSocketsManager = () => {
     }
 
     socket.on('newMessage', (message: Message) => {
-      console.log('Received WebSocket message:', message);
       dispatch(setMessage({ message }));
     });
 

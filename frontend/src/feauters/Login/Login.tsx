@@ -31,7 +31,6 @@ export default function  AuthForm() {
     try {
       setSubmitting(false);
       await authorize(values).then((response): void => {
-        console.log(response);
         const { username, token } = response.data;
         localStorage.setItem("username", username)
         localStorage.setItem("token", token)
@@ -41,7 +40,6 @@ export default function  AuthForm() {
         navigate("/");
       })
     } catch (e) {
-      console.log(e);
       setErrors({ username: "Неверные имя пользователя или пароль" });
     }
   };
