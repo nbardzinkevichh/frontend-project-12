@@ -6,5 +6,8 @@
 *.ntvs*
 *.njsproj
 *.sln
-node_modules
+
 *.sw?
+
+node_modules
+package-lock.json
