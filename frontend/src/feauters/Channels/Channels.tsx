@@ -92,7 +92,7 @@ export default function Channels() {
 
                 <button
                 onClick={() => handleChannelChange(channel.id)}
-                className={`${sharedButtonClasses} text-truncate btn ${channel.id === activeIndex ? 'btn-secondary ' : ''}`} type="button">
+                className={`${sharedButtonClasses} text-truncate btn ${channel.id === activeIndex ? 'btn-secondary' : ''}`} type="button">
                   <span className="me-1">#</span>
                   {channel.name}
                 </button>
@@ -104,10 +104,9 @@ export default function Channels() {
             channel.removable &&
             <li key={channel.id}>
               <Dropdown as={ButtonGroup} className="d-flex">
-                <Button
+                <button
                 onClick={() => handleChannelChange(channel.id)}
-                variant=""
-                className={`${sharedButtonClasses} text-truncate ${channel.id === activeIndex ? 'btn-secondary' : ''}`}><span className="me-1">#</span>{channel.name}</Button>
+                className={`${sharedButtonClasses} text-truncate btn ${channel.id === activeIndex ? 'btn-secondary' : ''}`}><span className="me-1">#</span>{channel.name}</button>
 
                 <Dropdown.Toggle split className={`${channel.id === activeIndex ? 'btn-secondary' : ''}`} variant=""
                                  id="dropdown-split-basic">
