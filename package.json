@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run build --prefix frontend",
     "start": "start-server -s ./frontend/dist",
-    "postinstall": "cd frontend && npm ci"
+    "postinstall": "cd frontend && npm install"
   },
   "author": "Nikolai B.",
   "license": "ISC",
