@@ -59,7 +59,7 @@ export default function Channels() {
     handleModalShow();
   };
 
-  const sharedButtonClasses = "w-100 rounded-0 text-start btn";
+  const sharedButtonClasses = "w-100 rounded-0 text-start";
 
   const channels = useSelector(selectChannels);
   const activeChannel = useSelector(getActiveChannel);
@@ -71,7 +71,7 @@ export default function Channels() {
         <b>Каналы</b>
         <div className="modalButton">
           <button
-          className="p-0 text-primary btn btn-group-vertical border-0" 
+          className="p-0 text-primary btn btn-group-vertical border-0"
           onClick={handleModalShow}
           type="button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" fill="currentColor">
@@ -92,7 +92,7 @@ export default function Channels() {
 
                 <button
                 onClick={() => handleChannelChange(channel.id)}
-                className={`${sharedButtonClasses} ${channel.id === activeIndex ? 'btn-secondary' : ''}`} type="button">
+                className={`${sharedButtonClasses}  ${channel.id === activeIndex ? 'btn btn-secondary text-truncate' : 'btn'}`} type="button">
                   <span className="me-1">#</span>
                   {channel.name}
                 </button>
