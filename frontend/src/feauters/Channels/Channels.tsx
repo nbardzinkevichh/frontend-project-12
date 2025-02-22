@@ -100,8 +100,7 @@ export default function Channels() {
 
                 <button
                 onClick={() => handleChannelChange(channel.id)}
-                className={`${sharedButtonClasses} 
-                text-truncate btn ${channel.id === activeIndex ? 'btn-secondary' : ''}`} type="button">
+                className={`${sharedButtonClasses} text-truncate btn ${channel.id === activeIndex ? 'btn-secondary' : ''}`} type="button">
                   <span className="me-1">#</span>
                   {channel.name}
                 </button>
@@ -115,8 +114,7 @@ export default function Channels() {
               <Dropdown as={ButtonGroup} className="d-flex">
                 <button
                 onClick={() => handleChannelChange(channel.id)}
-                className={`${sharedButtonClasses}
-                text-truncate btn ${channel.id === activeIndex ? 'btn-secondary' : ''}`}>
+                className={`${sharedButtonClasses} text-truncate btn ${channel.id === activeIndex ? 'btn-secondary' : ''}`}>
                   <span className="me-1">#</span>{channel.name}
                 </button>
 
