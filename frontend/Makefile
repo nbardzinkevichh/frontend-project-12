@@ -1,5 +1,5 @@
 install:
-	npm cig
+	npm ci
 start:
 	npm start
 
