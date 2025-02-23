@@ -2,6 +2,8 @@ import {Button, Modal} from "react-bootstrap";
 import { useRemoveChannelMutation } from './channelsApi';
 import {useTranslation} from "react-i18next";
 import {showSuccess} from "../../toastify/toasts.ts";
+import useErrorHandler from "../../hooks/useErrorHandler.ts";
+
 
 interface RemoveChannelModalProps {
   show: boolean;
@@ -12,14 +14,23 @@ interface RemoveChannelModalProps {
 
 const RemoveChannelModal =
   ({ show, setModalMode, handleModalClose, existingChannel}: RemoveChannelModalProps) => {
-  const [removeChannel] = useRemoveChannelMutation();
+  const [removeChannel, { error }] = useRemoveChannelMutation();
   const { t } = useTranslation('toasts');
+  const errorHandler = useErrorHandler();
+
+  if (error) {
+    errorHandler(error, t('dataLoadingError'));
+  }
 
   const handleSubmit = async () => {
-    await removeChannel(existingChannel.id);
-    setModalMode('add');
-    handleModalClose();
-    showSuccess(t('channels.success.remove'))
+    try {
+      await removeChannel(existingChannel.id);
+      setModalMode('add');
+      handleModalClose();
+      showSuccess(t('channels.success.remove'))
+    } catch (e) {
+      errorHandler(e);
+    }
   }
 
   return (

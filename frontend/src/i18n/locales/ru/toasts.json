@@ -1,5 +1,7 @@
 {
   "networkError": "Ошибка соединения",
+  "authError": "Ошибка аунтефикации",
+  "authorizationError": "Ошибка авторизации",
   "dataLoadingError": "Ошибка в загрузке данных",
   "channels": {
     "success": {

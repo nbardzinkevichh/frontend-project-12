@@ -35,12 +35,10 @@ export default function  Signup() {
       }).then(() => {
         navigate("/");
       })
-    } catch (e: unknown) {
+    } catch (e) {
       if (axios.isAxiosError(e)) {
         if (e.status === 409) {
           setErrors({ username: 'Такой пользователь уже существует' });
-        } else {
-          setErrors({ username: "Неверные имя пользователя или пароль" });
         }
       }
     }

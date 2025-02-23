@@ -4,8 +4,6 @@ import Header from "../components/Header";
 import Channels from "../feauters/Channels/Channels";
 import Messages from "../feauters/Messages/Messages";
 import { useNavigate } from "react-router-dom";
-import {ToastContainer} from "react-toastify";
-
 
 const Chat = () => {
 
@@ -30,7 +28,6 @@ const Chat = () => {
         </Row>
         
       </Container>
-      <ToastContainer />
     </>
   )
 };

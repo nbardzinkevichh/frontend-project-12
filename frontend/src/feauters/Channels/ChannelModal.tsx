@@ -12,10 +12,12 @@ import { Modal, Form, Button } from "react-bootstrap";
 
 import { channelFieldValidation } from "./channelFieldValidation";
 import {useTranslation} from "react-i18next";
-import {showError, showSuccess} from "../../toastify/toasts.ts";
+import { showSuccess } from '../../toastify/toasts.ts';
 
 import leoProfanityFilter from '../../utility/leoProfanityFilter.ts';
 import {useAppDispatch} from "../../app/store.ts";
+
+import useErrorHandler from '../../hooks/useErrorHandler.ts';
 
 const filter = leoProfanityFilter();
 
@@ -35,6 +37,8 @@ const ChannelModal: React.FC<ChannelModalProps> = (
   const [editChannel] = useEditChannelMutation();
   const channels = useSelector(selectChannels);
   const dispatch = useAppDispatch();
+
+  const errorHandler = useErrorHandler();
 
   const initialValues = { name: existingChannel?.name ?? '' };
 
@@ -63,9 +67,8 @@ const ChannelModal: React.FC<ChannelModalProps> = (
       handleModalClose();
       setModalMode('add');
 
-
     } catch (e) {
-      showError(t('networkError'));
+      errorHandler(e);
     }
   };
 

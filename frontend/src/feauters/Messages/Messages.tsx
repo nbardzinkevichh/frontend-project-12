@@ -12,6 +12,9 @@ import { setMessages } from "./messagesSlice";
 
 import leoProfanityFilter from '../../utility/leoProfanityFilter.ts';
 
+import useErrorHandler from '../../hooks/useErrorHandler';
+import {useTranslation} from "react-i18next";
+
 const filter = leoProfanityFilter();
 
 export default function Messages() {
@@ -20,14 +23,20 @@ export default function Messages() {
   const [inputMessage, setInputMessage] = useState('');
 
   const [sendMessage] = useSendMessageMutation();
-  const { data, isSuccess } = useGetMessagesQuery();
+  const { data, isSuccess, error } = useGetMessagesQuery();
   const messages = useSelector(selectMessages);
+
+  const { t } = useTranslation('toasts');
+  const errorHandler = useErrorHandler();
 
   const dispatch = useAppDispatch();
   
   useEffect(() => {
     if (isSuccess && data) {
       dispatch(setMessages({ messages: data }));
+    }
+    if (error) {
+      errorHandler(error, t('dataLoadingError'));
     }
   }, [isSuccess, data, dispatch]);
 

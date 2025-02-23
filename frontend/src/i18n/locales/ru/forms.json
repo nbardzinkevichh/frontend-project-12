@@ -16,7 +16,7 @@
     "signupButton": "Зарегистрироваться"
   },
   "validation": {
-    "title": "asd"
+    "usernameOrPasswordIsIncorrect": "Неверные имя пользователя или пароль"
   }
 
 }

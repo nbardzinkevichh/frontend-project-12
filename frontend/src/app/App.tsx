@@ -10,6 +10,7 @@ import AuthForm from '../feauters/Login/Login.tsx';
 import NotFound from '../pages/NotFound.tsx';
 
 import {ErrorBoundary, Provider} from '@rollbar/react';
+import {ToastContainer} from "react-toastify";
 
 const rollbarAccessToken = process.env.ROLLBAR_ACCESS_TOKEN_W;
 
@@ -42,6 +43,8 @@ function App() {
           <Route path={routes.login} element={<AuthForm />} />
           <Route path={routes.signup} element={<Signup />} />
         </Routes>
+        <ToastContainer />
+
       </ErrorBoundary>
     </Provider>
 
