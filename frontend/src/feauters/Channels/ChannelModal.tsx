@@ -18,6 +18,7 @@ import leoProfanityFilter from '../../utility/leoProfanityFilter.ts';
 import {useAppDispatch} from "../../app/store.ts";
 
 import useErrorHandler from '../../hooks/useErrorHandler.ts';
+import {useEffect} from "react";
 
 const filter = leoProfanityFilter();
 
@@ -33,12 +34,18 @@ const ChannelModal: React.FC<ChannelModalProps> = (
   { mode, setModalMode, show, handleModalClose, existingChannel }
 ) => {
   const { t } = useTranslation('toasts');
-  const [addChannel] = useAddChannelMutation();
-  const [editChannel] = useEditChannelMutation();
+  const [addChannel, { error }] = useAddChannelMutation();
+  const [editChannel, { error: editChannelError }] = useEditChannelMutation();
   const channels = useSelector(selectChannels);
   const dispatch = useAppDispatch();
 
   const errorHandler = useErrorHandler();
+
+  useEffect(() => {
+    if (error || editChannelError) {
+      errorHandler(error, t('dataLoadingError'));
+    }
+  }, [error, editChannelError]);
 
   const initialValues = { name: existingChannel?.name ?? '' };
 
@@ -55,19 +62,25 @@ const ChannelModal: React.FC<ChannelModalProps> = (
     try {
       if (mode === 'add') {
         const response = await addChannel({ name: filteredChannelName });
-        dispatch(setActiveChannel(response.data as Channel));
-        showSuccess(t('channels.success.create'));
+        if (!response.error) {
+          dispatch(setActiveChannel(response.data as Channel));
+          showSuccess(t('channels.success.create'));
+        }
       }
 
       if (mode === 'edit') {
-        await editChannel({ id: existingChannel!.id, name: filteredChannelName });
-        showSuccess(t('channels.success.rename'));
+        const response = await editChannel(
+          { id: existingChannel!.id, name: filteredChannelName }
+        );
+        if (!response.error) {
+          showSuccess(t('channels.success.rename'));
+        }
       }
       resetForm();
       handleModalClose();
       setModalMode('add');
 
-    } catch (e) {
+    } catch (e: unknown) {
       errorHandler(e);
     }
   };
@@ -87,7 +100,7 @@ const ChannelModal: React.FC<ChannelModalProps> = (
         <>
           <Modal show={show} onHide={handleModalClose}>
             <Modal.Header closeButton>
-              <Modal.Title>{mode === 'add' ? 'Добавить канал' : 'Удалить канал'}</Modal.Title>
+              <Modal.Title>{mode === 'add' ? 'Добавить канал' : 'Переименовать канал'}</Modal.Title>
             </Modal.Header>
             <Form onSubmit={handleSubmit}>
               <Modal.Body>

@@ -3,6 +3,7 @@ import { useRemoveChannelMutation } from './channelsApi';
 import {useTranslation} from "react-i18next";
 import {showSuccess} from "../../toastify/toasts.ts";
 import useErrorHandler from "../../hooks/useErrorHandler.ts";
+import {useEffect} from "react";
 
 
 interface RemoveChannelModalProps {
@@ -18,9 +19,11 @@ const RemoveChannelModal =
   const { t } = useTranslation('toasts');
   const errorHandler = useErrorHandler();
 
-  if (error) {
-    errorHandler(error, t('dataLoadingError'));
-  }
+  useEffect(() => {
+    if (error) {
+      errorHandler(error, t('dataLoadingError'));
+    }
+  }, [error])
 
   const handleSubmit = async () => {
     try {

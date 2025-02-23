@@ -17,6 +17,8 @@ export default function Channels() {
   const [show, setShow] = useState(false);
   const [existingChannel, setExistingChannel] = useState<{id: string; name: string}>({id: '', name: ''});
   const [modalMode, setModalMode] = useState<'add' | 'edit' | 'remove'>('add');
+  const { data, error, isSuccess } = useGetChannelsQuery();
+
 
   const errorHandler = useErrorHandler();
 
@@ -25,8 +27,6 @@ export default function Channels() {
 
   const handleModalShow = () => setShow(true);
   const handleModalClose = () => setShow(false);
-
-  const { data, error, isSuccess } = useGetChannelsQuery();
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -37,6 +37,7 @@ export default function Channels() {
     if (error) {
       errorHandler(error, t('dataLoadingError'));
     }
+
   }, [data]);
 
 

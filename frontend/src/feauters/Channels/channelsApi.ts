@@ -22,7 +22,7 @@ export const channelsApi = createApi({
     }),
     addChannel: builder.mutation<Channel, { name: string}>({
       query: ({ name }) => ({
-          url: '',
+          url: 'asdasd',
           method: 'POST',
           body: { name },
         }
