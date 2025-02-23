@@ -7,7 +7,7 @@ type ErrorHandler = (error: unknown | AxiosError, message?: string) => void;
 const useErrorHandler = (): ErrorHandler => {
   const { t } = useTranslation('toasts');
 
-  return ((error: unknown | AxiosError, message?: string, ) => {
+  return ((error: unknown | AxiosError, message?: string) => {
     if (axios.isAxiosError(error)) {
       if (error.code === 'ERR_NETWORK') {
         showError(t('networkError'))
@@ -19,8 +19,9 @@ const useErrorHandler = (): ErrorHandler => {
             showError(t('authorizationError'));
           }
         }
-      }
-      showError(message!);
+      } else {
+      showError(message ?? "Неизвестная ошибка");
+    }
   });
 };
 
