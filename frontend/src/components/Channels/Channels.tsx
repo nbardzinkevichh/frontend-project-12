@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { useAppDispatch } from "../../app/store";
+import { useAppDispatch } from "../../feauters/store.ts";
 
-import { useGetChannelsQuery } from "./channelsApi";
+import { useGetChannelsQuery } from "../../feauters/Channels/channelsApi.ts";
 
-import { Channel, setChannels } from "./channelsSlice";
-import { setActiveChannel, getActiveChannel, selectChannels } from "./channelsSlice";
-import ChannelModal from "./ChannelModal";
+import { Channel, setChannels } from "../../feauters/Channels/channelsSlice.ts";
+import { setActiveChannel, getActiveChannel, selectChannels } from "../../feauters/Channels/channelsSlice.ts";
+import ChannelModal from "./ChannelModal.tsx";
 import { ButtonGroup, Dropdown } from "react-bootstrap";
 import {useTranslation} from "react-i18next";
 

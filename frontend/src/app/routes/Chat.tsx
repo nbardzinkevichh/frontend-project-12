@@ -1,8 +1,8 @@
 import { Container, Row, Col } from "react-bootstrap";
-import Header from "../components/Header";
+import Header from "../../components/Header.tsx";
 
-import Channels from "../feauters/Channels/Channels";
-import Messages from "../feauters/Messages/Messages";
+import Channels from "../../components/Channels/Channels.tsx";
+import Messages from "../../components/Messages/Messages.tsx";
 import { useNavigate } from "react-router-dom";
 
 const Chat = () => {

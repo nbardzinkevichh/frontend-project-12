@@ -1,13 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import routes from '../router/routes.ts';
+import routes from './routes.ts';
 
 import { useSelector } from 'react-redux';
 import {selectCurrentUser} from '../feauters/Login/authSlice.ts';
 
-import Signup from '../feauters/Signup/Signup.tsx';
-import Chat from '../pages/Chat.tsx';
-import AuthForm from '../feauters/Login/Login.tsx';
-import NotFound from '../pages/NotFound.tsx';
+import Signup from '../components/Signup/Signup.tsx';
+import Chat from './routes/Chat.tsx';
+import AuthForm from '../components/Login/Login.tsx';
+import NotFound from './routes/NotFound.tsx';
 
 import {ErrorBoundary, Provider} from '@rollbar/react';
 import {ToastContainer} from "react-toastify";

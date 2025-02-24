@@ -2,20 +2,20 @@ import { Formik, Field, FormikHelpers } from "formik";
 
 import { useSelector } from "react-redux";
 
-import {Channel, selectChannels, setActiveChannel} from "./channelsSlice";
+import {Channel, selectChannels, setActiveChannel} from "../../feauters/Channels/channelsSlice.ts";
 
-import RemoveChannelModal from "./RemoveChannelModal";
+import RemoveChannelModal from "./RemoveChannelModal.tsx";
 
-import {useAddChannelMutation, useEditChannelMutation } from "./channelsApi";
+import {useAddChannelMutation, useEditChannelMutation } from "../../feauters/Channels/channelsApi.ts";
 
 import { Modal, Form, Button } from "react-bootstrap";
 
-import { channelFieldValidation } from "./channelFieldValidation";
+import { channelFieldValidation } from "./channelFieldValidation.ts";
 import {useTranslation} from "react-i18next";
-import { showSuccess } from '../../toastify/toasts.ts';
+import { showSuccess } from '../../lib/toastify/toasts.ts';
 
 import leoProfanityFilter from '../../utility/leoProfanityFilter.ts';
-import {useAppDispatch} from "../../app/store.ts";
+import {useAppDispatch} from "../../feauters/store.ts";
 
 import useErrorHandler from '../../hooks/useErrorHandler.ts';
 import {useEffect} from "react";
@@ -80,8 +80,8 @@ const ChannelModal: React.FC<ChannelModalProps> = (
       handleModalClose();
       setModalMode('add');
 
-    } catch (e: unknown) {
-      errorHandler(e);
+    } catch (e) {
+      errorHandler(e, null);
     }
   };
 

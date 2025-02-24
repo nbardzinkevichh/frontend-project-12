@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import routes from '../../app/apiRoutes';
-import store from '../../app/store';
+import store from '../store.ts';
 import { Message } from './messagesSlice';
 
 const baseUrl = routes.messages();

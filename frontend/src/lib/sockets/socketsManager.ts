@@ -1,16 +1,16 @@
 import { io, Socket } from "socket.io-client";
-import { setMessage } from "../feauters/Messages/messagesSlice";
-import { useAppDispatch } from "../app/store";
+import { setMessage } from "../../feauters/Messages/messagesSlice.ts";
+import { useAppDispatch } from "../../feauters/store.ts";
 import { useEffect } from 'react';
 
-import { Message } from "../feauters/Messages/messagesSlice";
+import { Message } from "../../feauters/Messages/messagesSlice.ts";
 import {
   Channel,
   deleteChannel,
   editChannelName, selectChannels,
   setActiveChannel,
   setChannel
-} from "../feauters/Channels/channelsSlice.ts";
+} from "../../feauters/Channels/channelsSlice.ts";
 import {useSelector} from "react-redux";
 
 interface ServerToClientEvents {

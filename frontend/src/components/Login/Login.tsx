@@ -1,12 +1,12 @@
 import {Formik, Field, FormikHelpers, ErrorMessage} from 'formik';
-import { formSchema } from './validation.ts';
+import { formSchema } from '../../feauters/Login/validation.ts';
 import {Form, Button, FloatingLabel} from 'react-bootstrap';
 import authorize from './authorization.ts';
 import { useNavigate } from "react-router-dom";
 
-import { useAppDispatch } from '../../app/store.ts';
-import { setCredentials } from './authSlice.ts';
-import Header from "../../components/Header.tsx";
+import { useAppDispatch } from '../../feauters/store.ts';
+import { setCredentials } from '../../feauters/Login/authSlice.ts';
+import Header from "../Header.tsx";
 
 import {useTranslation} from 'react-i18next';
 import useErrorHandler from "../../hooks/useErrorHandler.ts";
@@ -40,8 +40,7 @@ export default function  AuthForm() {
         navigate("/");
       })
     } catch (e) {
-      setErrors({ username: t('validation.usernameOrPasswordIsIncorrect')})
-      errorHandler(e);
+      errorHandler(e, null, setErrors);
     }
   };
   

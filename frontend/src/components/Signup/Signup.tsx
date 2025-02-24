@@ -1,14 +1,14 @@
 import {ErrorMessage, Field, Formik, FormikHelpers} from "formik";
 import {Button, FloatingLabel, Form} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../app/store";
-import { User } from "../Login/Login";
-import { formSchema } from "./validation";
-import newUserRequest from "./newUserRequest.ts";
-import {setCredentials} from "../Login/authSlice.ts";
-import Header from "../../components/Header.tsx";
+import { useAppDispatch } from "../../feauters/store.ts";
+import { User } from "../Login/Login.tsx";
+import { formSchema } from "../../feauters/Signup/validation.ts";
+import newUserRequest from "../../feauters/Signup/newUserRequest.ts";
+import {setCredentials} from "../../feauters/Login/authSlice.ts";
+import Header from "../Header.tsx";
 import {useTranslation} from "react-i18next";
-import axios from "axios";
+import useErrorHandler from "../../hooks/useErrorHandler.ts";
 
 export interface UserToRegister extends User {
   passwordConfirmation: string;
@@ -21,6 +21,8 @@ export default function  Signup() {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const errorHandler = useErrorHandler();
+
 
   const handleSubmit =
     async (values: UserToRegister, { setSubmitting, setErrors, resetForm }: FormikHelpers<UserToRegister>): Promise<void> => {
@@ -36,15 +38,10 @@ export default function  Signup() {
         navigate("/");
       })
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        if (e.status === 409) {
-          setErrors({ username: 'Такой пользователь уже существует' });
-        }
-      }
+      errorHandler(e, null, setErrors);
     }
   };
 
-  
   return (
     <>
       <Header status='loggedOut' />

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { Channel } from './channelsSlice';
+import { Channel } from '../../feauters/Channels/channelsSlice.ts';
 
 export const channelFieldValidation =
   (channels: Channel[]): Yup.Schema<{ name: string}> => {

@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import routes from '../../app/apiRoutes';
-import {UserToRegister} from "./Signup.tsx";
+import {UserToRegister} from "../../components/Signup/Signup.tsx";
 
 const newUserRequest = async (user: UserToRegister): Promise<AxiosResponse> => {
   const signupRoute = routes.signUp();

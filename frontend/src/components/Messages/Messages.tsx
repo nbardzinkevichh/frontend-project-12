@@ -1,18 +1,18 @@
-import { RootState, useAppDispatch } from "../../app/store";
+import { RootState, useAppDispatch } from "../../feauters/store.ts";
 import { useSelector } from "react-redux";
-import { useGetMessagesQuery, useSendMessageMutation } from "./messagesApi";
-import { getActiveChannel } from "../Channels/channelsSlice";
+import { useGetMessagesQuery, useSendMessageMutation } from "../../feauters/Messages/messagesApi.ts";
+import { getActiveChannel } from "../../feauters/Channels/channelsSlice.ts";
 
-import { useSocketsManager } from "../../sockets/socketsManager";
+import { useSocketsManager } from "../../lib/sockets/socketsManager.ts";
 
-import { selectMessages } from "./messagesSlice";
+import { selectMessages } from "../../feauters/Messages/messagesSlice.ts";
 
 import { useEffect, useState } from "react";
-import { setMessages } from "./messagesSlice";
+import { setMessages } from "../../feauters/Messages/messagesSlice.ts";
 
 import leoProfanityFilter from '../../utility/leoProfanityFilter.ts';
 
-import useErrorHandler from '../../hooks/useErrorHandler';
+import useErrorHandler from '../../hooks/useErrorHandler.ts';
 import {useTranslation} from "react-i18next";
 
 const filter = leoProfanityFilter();

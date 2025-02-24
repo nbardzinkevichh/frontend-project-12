@@ -1,7 +1,7 @@
 import {Button, Modal} from "react-bootstrap";
-import { useRemoveChannelMutation } from './channelsApi';
+import { useRemoveChannelMutation } from '../../feauters/Channels/channelsApi.ts';
 import {useTranslation} from "react-i18next";
-import {showSuccess} from "../../toastify/toasts.ts";
+import {showSuccess} from "../../lib/toastify/toasts.ts";
 import useErrorHandler from "../../hooks/useErrorHandler.ts";
 import {useEffect} from "react";
 
@@ -32,7 +32,7 @@ const RemoveChannelModal =
       handleModalClose();
       showSuccess(t('channels.success.remove'))
     } catch (e) {
-      errorHandler(e);
+      errorHandler(e, null);
     }
   }
 
