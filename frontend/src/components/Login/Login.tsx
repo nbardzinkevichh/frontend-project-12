@@ -110,15 +110,11 @@ export default function  AuthForm() {
                             </Form.Control.Feedback>
                           </FloatingLabel>
 
-
-
                           <Button variant="primary" type="submit" className="w-100 mt-2 py-2">
                             {t('login.title')}
                           </Button>
 
                         </Form>
-
-
                       </div>
                     </Col>
                   </Row>
@@ -126,10 +122,8 @@ export default function  AuthForm() {
                     <Link to="/signup" className="fw-bold">  {t('registration')}</Link>
                   </div>
                 </div>
-
               </Col>
             </Row>
-
           </>
         )}
       </Formik>

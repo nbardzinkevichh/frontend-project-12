@@ -1,7 +1,6 @@
 import {useTranslation} from "react-i18next";
 import Header from "../../components/Header.tsx";
 
-
 export default function NotFound() {
   const { t } = useTranslation('pages');
 

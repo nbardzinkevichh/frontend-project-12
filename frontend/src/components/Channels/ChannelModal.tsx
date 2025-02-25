@@ -117,9 +117,8 @@ const ChannelModal: React.FC<ChannelModalProps> = (
                   }`}
                 />
                 <div className="invalid-feedback">{errors.name}</div>
-
-
               </Modal.Body>
+              
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleModalClose}>
                   Отменить

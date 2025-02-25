@@ -95,7 +95,6 @@ export default function Channels() {
           { channels.map((channel: Channel) =>
               !channel.removable &&
               <li key={channel.id}>
-
                 <button
                 onClick={() => handleChannelChange(channel.id)}
                 className={`${sharedButtonClasses} text-truncate btn ${channel.id === activeIndex ? 'btn-secondary' : ''}`} type="button">

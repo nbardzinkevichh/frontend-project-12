@@ -34,7 +34,7 @@ const RemoveChannelModal =
     } catch (e) {
       errorHandler(e, null);
     }
-  }
+  };
 
   return (
     <Modal show={show} onHide={handleModalClose}>
