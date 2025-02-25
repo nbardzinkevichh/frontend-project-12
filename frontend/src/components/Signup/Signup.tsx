@@ -48,8 +48,6 @@ export default function  Signup() {
     <>
       <Header status='loggedOut' />
       <Container className="h-100">
-
-
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -119,6 +117,9 @@ export default function  Signup() {
                             className='mb-3'
                             isInvalid={!!errors.passwordConfirmation && touched.passwordConfirmation}
                           />
+                          <Form.Control.Feedback type="invalid" tooltip>
+                            {errors.passwordConfirmation}
+                          </Form.Control.Feedback>
                         </FloatingLabel>
 
                         <Button variant="primary" type="submit" className="w-100 mt-2 py-2">
