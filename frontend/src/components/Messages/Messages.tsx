@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useGetMessagesQuery, useSendMessageMutation } from "../../feauters/Messages/messagesApi.ts";
 import { getActiveChannel } from "../../feauters/Channels/channelsSlice.ts";
 
-import { useSocketsManager } from "../../lib/sockets/socketsManager.ts";
+import { useSocketsManager } from "../../app/sockets/socketsManager.ts";
 
 import { selectMessages } from "../../feauters/Messages/messagesSlice.ts";
 
