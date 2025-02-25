@@ -1,5 +1,5 @@
-import {ErrorMessage, Field, Formik, FormikHelpers} from "formik";
-import {Button, FloatingLabel, Form} from 'react-bootstrap';
+import {Field, Formik, FormikHelpers} from "formik";
+import {Button, Col, Container, FloatingLabel, Image, Form, Row} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../feauters/store.ts";
 import { User } from "../Login/Login.tsx";
@@ -9,6 +9,9 @@ import {setCredentials} from "../../feauters/Login/authSlice.ts";
 import Header from "../Header.tsx";
 import {useTranslation} from "react-i18next";
 import useErrorHandler from "../../hooks/useErrorHandler.ts";
+
+import SignupImage from '../../assets/signup.jpg';
+import LoginImage from "../../assets/login.jpg";
 
 export interface UserToRegister extends User {
   passwordConfirmation: string;
@@ -45,6 +48,9 @@ export default function  Signup() {
   return (
     <>
       <Header status='loggedOut' />
+      <Container className="h-100">
+
+
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -55,73 +61,83 @@ export default function  Signup() {
              errors,
              handleSubmit,
            }) => (
-          <div className='d-flex justify-content-center align-items-center vh-100' >
-            <img src="" alt="" />
-            <div className='mw-400 text-center'>
-              <h1>Регистрация</h1>
-              <Form onSubmit={handleSubmit} className="d-flex gap-20 flex-column">
-                <FloatingLabel
-                  controlId="username"
-                  label={t("signup.usernameInput")}
-                >
-                  <Field
-                    as={Form.Control}
-                    name="username"
-                    type="text"
-                    placeholder="Имя пользователя"
-                    className='mb-3'
-                    isInvalid={!!errors.username && touched.username}
-                  />
-                  <ErrorMessage name='username' >
-                    { msg => <div className="invalid-feedback my-2">{msg}</div>}
-                  </ErrorMessage>
-                </FloatingLabel>
 
-                <FloatingLabel
-                  controlId="password"
-                  label={t('passwordInput')}
-                >
-                  <Field
-                    as={Form.Control}
-                    name="password"
-                    type="password"
-                    placeholder="Пароль"
-                    className='mb-3'
-                    isInvalid={!!errors.password && touched.password}
-                  />
+          <Row className="d-flex justify-content-center align-items-center align-content-center h-100">
+            <Col xs={12} md={8} xxl={6}>
+              <div className="card shadow-sm">
+                <Row className="card-body p-5">
+                  <Col className="d-flex align-items-center justify-content-center">
+                    <img className="rounded-circle" src={SignupImage} alt="Регистрация" />
+                  </Col>
+                  <Col>
+                    <div className='mw-400 text-center'>
+                      <h1 className="mb-4">Регистрация</h1>
+                      <Form onSubmit={handleSubmit} className="d-flex gap-20 flex-column">
+                        <FloatingLabel
+                          controlId="username"
+                          label={t("signup.usernameInput")}
+                        >
+                          <Field
+                            as={Form.Control}
+                            name="username"
+                            type="text"
+                            placeholder="Имя пользователя"
+                            className='mb-3'
+                            isInvalid={!!errors.username && touched.username}
+                          />
+                          <Form.Control.Feedback type="invalid" tooltip>
+                            {errors.username}
+                          </Form.Control.Feedback>
+                        </FloatingLabel>
 
-                  <ErrorMessage name='password' >
-                    { msg => <div className="invalid-feedback mb-2">{msg}</div>}
-                  </ErrorMessage>
-                </FloatingLabel>
+                        <FloatingLabel
+                          controlId="password"
+                          label={t('passwordInput')}
+                        >
+                          <Field
+                            as={Form.Control}
+                            name="password"
+                            type="password"
+                            placeholder="Пароль"
+                            className='mb-3'
+                            isInvalid={!!errors.password && touched.password}
+                          />
 
-                <FloatingLabel
-                  controlId="passwordConfirmation"
-                  label={t('signup.passwordConfirmationInput')}
-                >
-                  <Field
-                    as={Form.Control}
-                    name="passwordConfirmation"
-                    type="password"
-                    placeholder="Подвердите пароль"
-                    className='mb-3'
-                    isInvalid={!!errors.passwordConfirmation && touched.passwordConfirmation}
-                  />
+                          <Form.Control.Feedback type="invalid" tooltip>
+                            {errors.password}
+                          </Form.Control.Feedback>
+                        </FloatingLabel>
 
-                  <ErrorMessage name='passwordConfirmation' >
-                    { msg => <div className="invalid-feedback">{msg}</div>}
-                  </ErrorMessage>
-                </FloatingLabel>
+                        <FloatingLabel
+                          controlId="passwordConfirmation"
+                          label={t('signup.passwordConfirmationInput')}
+                        >
+                          <Field
+                            as={Form.Control}
+                            name="passwordConfirmation"
+                            type="password"
+                            placeholder="Подвердите пароль"
+                            className='mb-3'
+                            isInvalid={!!errors.passwordConfirmation && touched.passwordConfirmation}
+                          />
+                        </FloatingLabel>
 
-                <Button variant="primary" type="submit" className="mt-2 py-2">
-                  {t('signup.signupButton')}
-                </Button>
+                        <Button variant="primary" type="submit" className="mt-2 py-2">
+                          {t('signup.signupButton')}
+                        </Button>
 
-              </Form>
-            </div>
-          </div>
+                      </Form>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </Col>
+
+
+            </Row>
         )}
       </Formik>
+      </Container>
     </>
   )
 };
