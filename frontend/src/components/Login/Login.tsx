@@ -72,7 +72,7 @@ export default function  AuthForm() {
                       <img className="rounded-circle" src={LoginImage} alt="Войти" />
                     </Col>
                     <Col>
-                      <div className='w-400 text-center'>
+                      <div className='mw-400 text-center'>
                         <h1 className="mb-4">{t('login.title')}</h1>
                         <Form onSubmit={handleSubmit}>
                           <FloatingLabel
@@ -112,7 +112,7 @@ export default function  AuthForm() {
 
 
 
-                          <Button variant="primary" type="submit" className="my-2 px-4">
+                          <Button variant="primary" type="submit" className="w-100 mt-2 py-2">
                             {t('login.title')}
                           </Button>
 
@@ -122,7 +122,7 @@ export default function  AuthForm() {
                       </div>
                     </Col>
                   </Row>
-                  <div className='mt-3 card-footer text-center p-4'>{t('login.footer.noAccount')}
+                  <div className='w-100 mt-3 card-footer text-center p-4'>{t('login.footer.noAccount')}
                     <Link to="/signup" className="fw-bold">  {t('registration')}</Link>
                   </div>
                 </div>

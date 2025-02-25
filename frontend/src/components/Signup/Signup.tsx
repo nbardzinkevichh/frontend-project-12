@@ -1,5 +1,5 @@
 import {Field, Formik, FormikHelpers} from "formik";
-import {Button, Col, Container, FloatingLabel, Image, Form, Row} from 'react-bootstrap';
+import {Button, Col, Container, FloatingLabel, Form, Row} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../feauters/store.ts";
 import { User } from "../Login/Login.tsx";
@@ -11,7 +11,6 @@ import {useTranslation} from "react-i18next";
 import useErrorHandler from "../../hooks/useErrorHandler.ts";
 
 import SignupImage from '../../assets/signup.jpg';
-import LoginImage from "../../assets/login.jpg";
 
 export interface UserToRegister extends User {
   passwordConfirmation: string;
@@ -71,8 +70,8 @@ export default function  Signup() {
                   </Col>
                   <Col>
                     <div className='mw-400 text-center'>
-                      <h1 className="mb-4">Регистрация</h1>
-                      <Form onSubmit={handleSubmit} className="d-flex gap-20 flex-column">
+                      <h1 className="mb-4">{t('registration')}</h1>
+                      <Form onSubmit={handleSubmit}>
                         <FloatingLabel
                           controlId="username"
                           label={t("signup.usernameInput")}
@@ -122,7 +121,7 @@ export default function  Signup() {
                           />
                         </FloatingLabel>
 
-                        <Button variant="primary" type="submit" className="mt-2 py-2">
+                        <Button variant="primary" type="submit" className="w-100 mt-2 py-2">
                           {t('signup.signupButton')}
                         </Button>
 
