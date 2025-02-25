@@ -1,6 +1,6 @@
 {
   "notFound": {
-    "notFoundError": "404 NOT FOUND!",
+    "notFoundError": "Страница не найдена",
     "notFoundDescription": "Вернуться на",
     "notFoundLink": "главную страницу"
   }

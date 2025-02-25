@@ -30,7 +30,7 @@ export default function Messages() {
   const errorHandler = useErrorHandler();
 
   const dispatch = useAppDispatch();
-  
+
   useEffect(() => {
     if (isSuccess && data) {
       dispatch(setMessages({ messages: data }));
@@ -60,7 +60,7 @@ export default function Messages() {
         <b className=""># {activeChannel?.name}</b>
         <p className="">{activeMessages.length} сообщений</p>
       </div>
-      
+
       <div className="message-box px-5 overflow-auto">
         { isSuccess && activeMessages.map(
           (msg) => <div key={msg.id} className="text-break mb-2">
@@ -81,7 +81,7 @@ export default function Messages() {
           </div>
         </form>
       </div>
-      
+
     </div>
   )
 }

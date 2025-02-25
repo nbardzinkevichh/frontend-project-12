@@ -92,8 +92,8 @@ const ChannelModal: React.FC<ChannelModalProps> = (
       onSubmit={handleSubmit}
       validationSchema={channelFieldValidation(channels)}
     >
-      {({ 
-        touched, 
+      {({
+        touched,
         errors,
         handleSubmit,
       }) => (

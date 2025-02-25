@@ -8,7 +8,7 @@ import { useGetChannelsQuery } from "../../feauters/Channels/channelsApi.ts";
 import { Channel, setChannels } from "../../feauters/Channels/channelsSlice.ts";
 import { setActiveChannel, getActiveChannel, selectChannels } from "../../feauters/Channels/channelsSlice.ts";
 import ChannelModal from "./ChannelModal.tsx";
-import { ButtonGroup, Dropdown } from "react-bootstrap";
+import {ButtonGroup, Dropdown} from "react-bootstrap";
 import {useTranslation} from "react-i18next";
 
 import useErrorHandler from "../../hooks/useErrorHandler.ts";
@@ -19,7 +19,6 @@ export default function Channels() {
   const [modalMode, setModalMode] = useState<'add' | 'edit' | 'remove'>('add');
   const { data, error, isSuccess } = useGetChannelsQuery();
 
-
   const errorHandler = useErrorHandler();
 
   const { t } = useTranslation('toasts');
@@ -29,6 +28,7 @@ export default function Channels() {
   const handleModalClose = () => setShow(false);
 
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (isSuccess && data) {
       dispatch(setChannels({ channels: data }));
@@ -37,7 +37,6 @@ export default function Channels() {
     if (error) {
       errorHandler(error, t('dataLoadingError'));
     }
-
   }, [data]);
 
 
@@ -89,12 +88,12 @@ export default function Channels() {
             existingChannel={existingChannel}
           />
         </div>
-        
+
       </div>
       <div className="channels-title ">
         <ul className="p-0">
           { channels.map((channel: Channel) =>
-              !channel.removable && 
+              !channel.removable &&
               <li key={channel.id}>
 
                 <button
