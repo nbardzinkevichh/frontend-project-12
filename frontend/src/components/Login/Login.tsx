@@ -1,8 +1,8 @@
-import {Formik, Field, FormikHelpers, ErrorMessage} from 'formik';
+import {Formik, Field, FormikHelpers } from 'formik';
 import { formSchema } from '../../feauters/Login/validation.ts';
-import {Form, Button, FloatingLabel} from 'react-bootstrap';
+import {Form, Button, FloatingLabel, Container, Row, Col} from 'react-bootstrap';
 import authorize from './authorization.ts';
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 import { useAppDispatch } from '../../feauters/store.ts';
 import { setCredentials } from '../../feauters/Login/authSlice.ts';
@@ -10,6 +10,8 @@ import Header from "../Header.tsx";
 
 import {useTranslation} from 'react-i18next';
 import useErrorHandler from "../../hooks/useErrorHandler.ts";
+
+import LoginImage from '../../assets/login.jpg';
 
 export interface User {
   username?: string;
@@ -43,75 +45,95 @@ export default function  AuthForm() {
       errorHandler(e, null, setErrors);
     }
   };
-  
+
   return (
     <>
     <Header status='loggedOut' />
-    <Formik
-      initialValues={initialValues}
-      validateOnChange={false}
-      onSubmit={handleSubmit}
-      validationSchema={formSchema}
-    >
-      {( {
-           touched,
-           errors,
-           handleSubmit,
-         }) => (
+    <Container className='vh-100'>
 
-        <div className='d-flex justify-content-center align-items-center vh-100' >
-          <img src="" alt="" />
-          <div className='w-400 text-center'>
-            <h1 className="mb-4">{t('login.title')}</h1>
-            <Form onSubmit={handleSubmit}>
-              <FloatingLabel
-                controlId="username"
-                label={t('login.usernameInput')}
-              >
-                <Field
-                  as={Form.Control}
-                  name="username"
-                  required
-                  type="text"
-                  placeholder={t('login.usernameInput')}
-                  className='mb-3'
-                  isInvalid={!!errors.username && touched.username}
-                />
-              </FloatingLabel>
+      <Formik
+        initialValues={initialValues}
+        validateOnChange={false}
+        onSubmit={handleSubmit}
+        validationSchema={formSchema}
+      >
+        {( {
+             touched,
+             errors,
+             handleSubmit,
+           }) => (
 
-              <FloatingLabel
-                controlId="password"
-                label={t('passwordInput')}
-              >
-                <Field
-                  as={Form.Control}
-                  required
-                  name="password"
-                  type="password"
-                  placeholder={t('passwordInput')}
-                  className='mb-3'
-                  isInvalid={!!errors.username && touched.username}
-                >
-                </Field>
+          <>
+            <Row className="d-flex justify-content-center align-items-center align-content-center h-100">
+              <Col xs={12} md={8} xxl={6}>
+                <div className="card shadow-sm">
+                  <Row className="card-body p-5">
+                    <Col className="d-flex align-items-center justify-content-center">
+                      <img className="rounded-circle" src={LoginImage} alt="Войти" />
+                    </Col>
+                    <Col>
+                      <div className='w-400 text-center'>
+                        <h1 className="mb-4">{t('login.title')}</h1>
+                        <Form onSubmit={handleSubmit}>
+                          <FloatingLabel
+                            controlId="username"
+                            label={t('login.usernameInput')}
+                          >
+                            <Field
+                              as={Form.Control}
+                              name="username"
+                              required
+                              type="text"
+                              placeholder={t('login.usernameInput')}
+                              className='mb-3'
+                              isInvalid={!!errors.username && touched.username}
+                            />
+                          </FloatingLabel>
 
-                <ErrorMessage name='username'>
-                  { msg => <div className="invalid-feedback mb-2">{msg}</div>}
-                </ErrorMessage>
-              </FloatingLabel>
+                          <FloatingLabel
+                            controlId="password"
+                            label={t('passwordInput')}
+                          >
+                            <Field
+                              as={Form.Control}
+                              required
+                              name="password"
+                              type="password"
+                              placeholder={t('passwordInput')}
+                              className='mb-3'
+                              isInvalid={!!errors.username && touched.username}
+                            >
+                            </Field>
+
+                            <Form.Control.Feedback type="invalid" tooltip>
+                              {errors.username}
+                            </Form.Control.Feedback>
+                          </FloatingLabel>
 
 
 
-              <Button variant="primary" type="submit" className="my-2 px-4">
-                {t('login.title')}
-              </Button>
+                          <Button variant="primary" type="submit" className="my-2 px-4">
+                            {t('login.title')}
+                          </Button>
 
-            </Form>
+                        </Form>
 
-            <div className='mt-3'>{t('login.footer.noAccount')} <a href="/signup">{t('registration')}</a></div>
-          </div>
-        </div>
-      )}
-    </Formik>
-  </>
+
+                      </div>
+                    </Col>
+                  </Row>
+                  <div className='mt-3 card-footer text-center p-4'>{t('login.footer.noAccount')}
+                    <Link to="/signup" className="fw-bold">  {t('registration')}</Link>
+                  </div>
+                </div>
+
+              </Col>
+            </Row>
+
+          </>
+        )}
+      </Formik>
+    </Container>
+    </>
   )
 };

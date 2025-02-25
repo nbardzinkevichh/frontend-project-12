@@ -1,9 +1,10 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import routes from './routes.ts';
 
 import { useSelector } from 'react-redux';
 import {selectCurrentUser} from '../feauters/Login/authSlice.ts';
 
+import Login from '../components/Login/Login.tsx';
 import Signup from '../components/Signup/Signup.tsx';
 import Chat from './routes/Chat.tsx';
 import AuthForm from '../components/Login/Login.tsx';
@@ -38,7 +39,7 @@ function App() {
         <Routes>
           <Route path={routes.notFound} element={<NotFound />} />
           <Route path={routes.home} element=
-            { isLoggedIn ? <Chat /> : <Navigate to="/login" />}
+            { isLoggedIn ? <Chat /> : <Login />}
           />
           <Route path={routes.login} element={<AuthForm />} />
           <Route path={routes.signup} element={<Signup />} />
