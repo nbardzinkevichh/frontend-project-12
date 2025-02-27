@@ -25,7 +25,10 @@ export default function Channels() {
   const { t: tDropdowns} = useTranslation();
 
   const handleModalShow = () => setShow(true);
-  const handleModalClose = () => setShow(false);
+  const handleModalClose = () => {
+    setModalMode('add');
+    setShow(false);
+  };
 
   const dispatch = useAppDispatch();
 
