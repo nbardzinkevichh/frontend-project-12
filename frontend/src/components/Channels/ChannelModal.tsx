@@ -76,10 +76,9 @@ const ChannelModal: React.FC<ChannelModalProps> = (
           showSuccess(t('channels.success.rename'));
         }
       }
-      resetForm();
-      handleModalClose();
-      setModalMode('add');
-
+    resetForm();
+    handleModalClose();
+    setModalMode('add');
     } catch (e) {
       errorHandler(e, null);
     }
@@ -96,9 +95,16 @@ const ChannelModal: React.FC<ChannelModalProps> = (
         touched,
         errors,
         handleSubmit,
+        resetForm
       }) => (
         <>
-          <Modal show={show} onHide={handleModalClose}>
+          <Modal
+            show={show}
+            onHide={() => {
+              resetForm();
+              handleModalClose();
+            }}
+          >
             <Modal.Header closeButton>
               <Modal.Title>{mode === 'add' ? 'Добавить канал' : 'Переименовать канал'}</Modal.Title>
             </Modal.Header>
@@ -118,9 +124,13 @@ const ChannelModal: React.FC<ChannelModalProps> = (
                 />
                 <div className="invalid-feedback">{errors.name}</div>
               </Modal.Body>
-              
+
               <Modal.Footer>
-                <Button variant="secondary" onClick={handleModalClose}>
+                <Button variant="secondary" onClick={() => {
+                  resetForm();
+                  handleModalClose();
+
+                }}>
                   Отменить
                 </Button>
 
