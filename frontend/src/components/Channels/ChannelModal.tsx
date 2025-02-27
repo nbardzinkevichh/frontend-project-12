@@ -76,9 +76,9 @@ const ChannelModal: React.FC<ChannelModalProps> = (
           showSuccess(t('channels.success.rename'));
         }
       }
-    resetForm();
-    handleModalClose();
-    setModalMode('add');
+      resetForm();
+      handleModalClose();
+      setModalMode('add');
     } catch (e) {
       errorHandler(e, null);
     }
